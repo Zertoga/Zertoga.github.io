@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8">
+  <title>Тег SCRIPT</title>
+  <script>
+  function popup() {
+   const queryString = window.location.search;
+   const urlParams = new URLSearchParams(queryString);
+   document.getElementById('token').innerHTML = urlParams.get('token');
+  }
+  </script>
+ </head>
+ <body onload="popup()"> 
+  <div id="token"></div>
+ </body>
+</html>
