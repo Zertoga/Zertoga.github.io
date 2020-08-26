@@ -1,31 +1,33 @@
 <!DOCTYPE html>
 <html>
- <head>
-  <meta charset="utf-8">
-  <title>DonationAlerts Token</title>
-  <script>
-  function load() {
-   const queryString = window.location.search;
-   const urlParams = new URLSearchParams(queryString);
-   document.getElementById('code').innerHTML = '#donationalerts ' + urlParams.get('code');
-  }
-  </script>
-    <style>
-   h1 {
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 250%;
-   } 
-   a{
-       font-family: 'Times New Roman', Times, serif;
-       font-size: 250%;
-   }
-  </style>
- </head>
- <body onload="load()"> 
-  <div>
-   <h1>Скопируйте текст ниже и отправьте в лс боту</h1>
-   <textarea id="code" cols="100" rows="11"></textarea>
-  </div>
-  <a href="https://vk.com/im?sel=-177181351">vk.com/FNBot</a>
- </body>
+
+<head>
+	<meta charset="utf-8">
+	<title>DonationAlerts Token</title>
+	<script>
+	function load() {
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+		document.getElementById('code').innerHTML = '#donationalerts ' + urlParams.get('code');
+	}
+	</script>
+	<style>
+	h1 {
+		font-family: 'Times New Roman', Times, serif;
+		font-size: 250%;
+	}
+	
+	a {
+		font-family: 'Times New Roman', Times, serif;
+		font-size: 250%;
+	}
+	</style>
+</head>
+
+<body onload="load()">
+	<div>
+		<h1>Скопируйте текст ниже и отправьте в лс боту</h1>
+		<textarea id="code" cols="115" rows="9"></textarea>
+	</div> <a href="https://vk.com/im?sel=-177181351">vk.com/FNBot</a> </body>
+
 </html>
