@@ -4,14 +4,28 @@
   <meta charset="utf-8">
   <title>Тег SCRIPT</title>
   <script>
-  function popup() {
+  function load() {
    const queryString = window.location.search;
    const urlParams = new URLSearchParams(queryString);
    document.getElementById('code').innerHTML = urlParams.get('code');
   }
   </script>
+    <style>
+   h1 {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 250%;
+   } 
+   a{
+       font-family: 'Times New Roman', Times, serif;
+       font-size: 250%;
+   }
+  </style>
  </head>
- <body onload="popup()"> 
-  <input id="code"></input>
+ <body onload="load()"> 
+  <div>
+   <h1>Скопируй код ниже и отправь в лс боту</h1>
+   <a href="https://vk.com/fnbot">vk.com/fnbot</a>
+  </div>
+  <textarea id="code" cols="100" rows="10"></textarea>
  </body>
 </html>
