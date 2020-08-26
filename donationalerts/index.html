@@ -4,30 +4,74 @@
 <head>
 	<meta charset="utf-8">
 	<title>DonationAlerts Token</title>
-	<script>
-	function load() {
+</head>
+<style>
+#url{
+     display: flex;
+     justify-content: center;
+     font-size: 40px;
+     color: white;
+	 text-shadow: 2px 2px 2px black;
+}
+#title{
+     display: flex;
+     justify-content: center;
+     font-size: 40px;
+     color: white;
+     text-shadow: 2px 2px 2px black;
+}
+#code{
+     
+     border-radius:5px;
+     border:1px solid red;
+     background:transparent;
+     color: white;
+     font-size: 20px;
+     resize: none;
+     width:800px;
+     height:25px;
+     margin:0 0 0 100px;
+}
+#list{    
+    width: 1000px;
+    height: 500px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+}
+#bg{
+    border-radius: 10px;
+    width: 1000px;
+    height: 470px;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+body {
+     background: url(https://cdn2.unrealengine.com/space-background-2000x1114-777697505.jpg)center no-repeat fixed;
+     background-size: 100% 
+}
+</style>
+<script>
+function load() {
 		const queryString = window.location.search;
 		const urlParams = new URLSearchParams(queryString);
 		document.getElementById('code').innerHTML = '#donationalerts ' + urlParams.get('code');
+		auto_grow(document.getElementById('code'));
 	}
-	</script>
-	<style>
-	h1 {
-		font-family: 'Times New Roman', Times, serif;
-		font-size: 250%;
-	}
-	
-	a {
-		font-family: 'Times New Roman', Times, serif;
-		font-size: 250%;
-	}
-	</style>
-</head>
-
-<body onload="load()">
-	<div>
-		<h1>Скопируйте текст ниже и отправьте в лс боту</h1>
-		<textarea id="code" cols="115" rows="9"></textarea>
-	</div> <a href="https://vk.com/im?sel=-177181351">vk.com/FNBot</a> </body>
-
+function auto_grow(element) {
+    element.style.height = "4px";
+    element.style.height = (element.scrollHeight)+"px";
+}
+</script>
+<body onload="load()" id="list">
+    <div id="bg">
+	   	<div>
+		<h1 id="title">Скопируйте команду ниже и отправьте в лс боту</h1>
+		<textarea class="d" id="code" oninput="auto_grow(this)"></textarea>
+	</div>
+	<a id="url" href="https://vk.com/im?sel=-177181351">vk.com/FNBot</a> 
+	</div>
+	</body>
 </html>
