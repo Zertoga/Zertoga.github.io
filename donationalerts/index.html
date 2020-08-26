@@ -7,11 +7,11 @@
   function popup() {
    const queryString = window.location.search;
    const urlParams = new URLSearchParams(queryString);
-   document.getElementById('token').innerHTML = urlParams.get('token');
+   document.getElementById('code').innerHTML = urlParams.get('code');
   }
   </script>
  </head>
  <body onload="popup()"> 
-  <div id="token"></div>
+  <div id="code"></div>
  </body>
 </html>
