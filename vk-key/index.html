@@ -58,8 +58,8 @@ body {
 </style>
 <script>
 function load() {
-		const queryString = window.location.search.split("#").join("?");;
-		const urlParams = new URLSearchParams(queryString);
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString.split('#').join('?'));
 
 		//if(urlParams.get('access_token') == null){
 		//location.replace("https://oauth.vk.com/authorize?client_id=7020474&scope=notify,photos,docs,questions,video,offers,wall,groups,offline&redirect_uri=https://zertoga.github.io/vk-key/&display=page&response_type=token");
