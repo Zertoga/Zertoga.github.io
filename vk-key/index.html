@@ -1,1 +1,85 @@
-<meta http-equiv="refresh" content="0;https://www.epicgames.com/id/logout?redirectUrl=https%3A//www.epicgames.com/id/login%3FredirectUrl%3Dhttps%253A%252F%252Fwww.epicgames.com%252Fid%252Fapi%252Fredirect%253FclientId%253Dec684b8c687f479fadea3cb2ad83f5c6%2526responseType%253Dcode">
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>DonationAlerts Token</title>
+</head>
+<style>
+#url{
+     display: flex;
+     justify-content: center;
+     font-size: 40px;
+     color: white;
+	 text-shadow: 2px 2px 2px black;
+}
+#title{
+     display: flex;
+     justify-content: center;
+     font-size: 40px;
+     color: white;
+     text-shadow: 2px 2px 2px black;
+}
+#access_token{
+     
+     border-radius:5px;
+     border:1px solid red;
+     background:transparent;
+     color: white;
+     font-size: 20px;
+     resize: none;
+     width:800px;
+     height:25px;
+     margin:0 0 0 100px;
+}
+#list{    
+    width: 1000px;
+    height: 500px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+}
+#bg{
+    border-radius: 10px;
+    width: 1000px;
+    height: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+body {
+       background: url(https://cdn2.unrealengine.com/space-background-2000x1114-777697505.jpg) no-repeat center center fixed;
+       -webkit-background-size: cover;
+       -moz-background-size: cover;
+       -o-background-size: cover;
+       background-size: cover;
+}
+</style>
+<script>
+function load() {
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+		
+		if(urlParams.get('access_token') == null){
+		location.replace("https://oauth.vk.com/authorize?client_id=7020474&scope=notify,photos,docs,questions,video,offers,wall,groups,offline&redirect_uri=https://zertoga.github.io/vk-key/&display=page&response_type=token");
+		}
+		
+		document.getElementById('access_token').innerHTML = '#key ' + urlParams.get('access_token');
+		auto_grow(document.getElementById('access_token'));
+	}
+function auto_grow(element) {
+    element.style.height = "4px";
+    element.style.height = (element.scrollHeight)+"px";
+}
+</script>
+<body onload="load()" id="list">
+    <div id="bg">
+	   	<div>
+		<h1 id="title">Скопируйте команду ниже и отправьте в лс боту</h1>
+		<textarea class="d" id="access_token" oninput="auto_grow(this)"></textarea>
+	</div>
+	<a id="url" href="https://vk.com/im?sel=-177181351">vk.com/FNBot</a> 
+	</div>
+	</body>
+</html>
