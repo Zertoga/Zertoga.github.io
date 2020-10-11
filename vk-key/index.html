@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-	<meta charset="utf-8">
-	<title>VK-Key</title>
-</head>
-<style>
+	<head>
+		<meta charset="utf-8">
+			<title>VK-Key</title>
+		</head>
+		<style>
 #url{
      display: flex;
      justify-content: center;
@@ -56,7 +55,7 @@ body {
        background-size: cover;
 }
 </style>
-<script>
+		<script>
 function load() {
 		const queryString = window.location.href.split('#')[1];
         const urlParams = new URLSearchParams(queryString);
@@ -74,13 +73,13 @@ function auto_grow(element) {
     element.style.height = (element.scrollHeight)+"px";
 }
 </script>
-<body onload="load()" id="list">
-    <div id="bg">
-	   	<div>
-		<h1 id="title">Скопируйте команду ниже и отправьте в лс боту</h1>
-		<textarea class="d" id="access_token" oninput="auto_grow(this)"></textarea>
-	</div>
-	<a id="url" href="https://vk.com/im?sel=-177181351">vk.com/FNBot</a> 
-	</div>
-	</body>
-</html>
+		<body onload="load()" id="list">
+			<div id="bg">
+				<div>
+					<h1 id="title">Скопируйте команду ниже и отправьте в лс боту</h1>
+					<textarea class="d" id="access_token" oninput="auto_grow(this)"></textarea>
+				</div>
+				<a id="url" href="https://vk.com/im?sel=-177181351">vk.com/FNBot</a>
+			</div>
+		</body>
+	</html>
