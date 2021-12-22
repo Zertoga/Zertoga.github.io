@@ -112,28 +112,31 @@
 	function toggleWeather() {
 		if(langButton.checked) {
 			setCookie("lang", "en");
-			changeLangByCookie();
+			document.getElementById('youloginin').textContent = "Are you already logged in to your account?"
+			document.getElementById('textYes').textContent = "Yes"
+			document.getElementById('textNo').textContent = "No"
 		} else {
 			setCookie("lang", "ru");
-			changeLangByCookie();
+			document.getElementById('youloginin').textContent = "Вы уже вошли в свою учетную запись?"
+			document.getElementById('textYes').textContent = "Да"
+			document.getElementById('textNo').textContent = "Нет"
 		}
 	}
 
 	function loadPage() {
 		changeLangByCookie();
+		divState.hidden = false;
 	}
 
 	function changeLangByCookie() {
 		var lang = getCookie("lang");
 		if(lang == "en") {
-		    if(!langButton.checked)
-			   langButton = true;
+		    langButton.checked = true;
 			document.getElementById('youloginin').textContent = "Are you already logged in to your account?"
 			document.getElementById('textYes').textContent = "Yes"
 			document.getElementById('textNo').textContent = "No"
 		} else {
-			if(langButton.checked)
-			   langButton = false;
+		    langButton.checked = false;
 			document.getElementById('youloginin').textContent = "Вы уже вошли в свою учетную запись?"
 			document.getElementById('textYes').textContent = "Да"
 			document.getElementById('textNo').textContent = "Нет"
@@ -158,15 +161,15 @@
 </head>
 
 <body onload="loadPage()">
-	<div>
-		<h1 id="youloginin" style="text-align: center; color: white; font-size: 30pt">Вы уже вошли в свою учетную запись? </h1>
+	<div id="divState" hidden="true">
+		<h1 id="youloginin" style="text-align: center; color: white; font-size: 30pt"></h1>
 		<p style="text-align: center">
-			<a href="https://www.epicgames.com/id/api/redirect?clientId=ec684b8c687f479fadea3cb2ad83f5c6&responseType=code" class="btn btn-large btn-primary" style="width:100pt; margin: 20pt; font-size: 20pt;" id="textYes">Да </a>
-			<a href="https://www.epicgames.com/id/logout?redirectUrl=https%3A//www.epicgames.com/id/login%3FredirectUrl%3Dhttps%253A%252F%252Fwww.epicgames.com%252Fid%252Fapi%252Fredirect%253FclientId%253Dec684b8c687f479fadea3cb2ad83f5c6%2526responseType%253Dcode" class="btn btn-large btn-primary" style="width:100pt; margin: 20pt; font-size: 20pt;" id="textNo">Нет </a>
+			<a href="https://www.epicgames.com/id/api/redirect?clientId=ec684b8c687f479fadea3cb2ad83f5c6&responseType=code" class="btn btn-large btn-primary" style="width:100pt; margin: 20pt; font-size: 20pt;" id="textYes"></a>
+			<a href="https://www.epicgames.com/id/logout?redirectUrl=https%3A//www.epicgames.com/id/login%3FredirectUrl%3Dhttps%253A%252F%252Fwww.epicgames.com%252Fid%252Fapi%252Fredirect%253FclientId%253Dec684b8c687f479fadea3cb2ad83f5c6%2526responseType%253Dcode" class="btn btn-large btn-primary" style="width:100pt; margin: 20pt; font-size: 20pt;" id="textNo"/></a>
 		</p>
 		<div style="text-align: center">
 			<label class="switch" style="text-align: center;">
-				<input type="checkbox" id="langButton" onclick="toggleWeather()">
+				<input type="checkbox" id="langButton" onclick="toggleWeather()"/>
 				<div class="slider round">
 					<span class="on">ENG </span>
 					<span class="off">RUS </span>
