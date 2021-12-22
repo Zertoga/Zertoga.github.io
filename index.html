@@ -109,7 +109,7 @@
 	}
 	</style>
 	<script>
-	function toggleWeather() {
+	function langSwitch() {
 		if(langButton.checked) {
 			setCookie("lang", "en");
 			document.getElementById('youloginin').textContent = "Are you already logged in to your account?"
@@ -169,7 +169,7 @@
 		</p>
 		<div style="text-align: center">
 			<label class="switch" style="text-align: center;">
-				<input type="checkbox" id="langButton" onclick="toggleWeather()"/>
+				<input type="checkbox" id="langButton" onclick="langSwitch()"/>
 				<div class="slider round">
 					<span class="on">ENG </span>
 					<span class="off">RUS </span>
