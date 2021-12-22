@@ -126,10 +126,14 @@
 	function changeLangByCookie() {
 		var lang = getCookie("lang");
 		if(lang == "en") {
+		    if(!langButton.checked)
+			   langButton = true;
 			document.getElementById('youloginin').textContent = "Are you already logged in to your account?"
 			document.getElementById('textYes').textContent = "Yes"
 			document.getElementById('textNo').textContent = "No"
 		} else {
+			if(langButton.checked)
+			   langButton = false;
 			document.getElementById('youloginin').textContent = "Вы уже вошли в свою учетную запись?"
 			document.getElementById('textYes').textContent = "Да"
 			document.getElementById('textNo').textContent = "Нет"
