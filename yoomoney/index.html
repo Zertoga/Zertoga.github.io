@@ -8,7 +8,7 @@ function load() {
 		const queryString = window.location.search;
 		const urlParams = new URLSearchParams(queryString);
 		var code = urlParams.get('code');
-		location.href = 'https://yoomoney.ru/oauth/token?code=${code}&client_id=EDE8FEBF1144C98D06058DA8B18964352434E997F6469AE90FEA383411D87FBB&grant_type=authorization_code';
+		location.href = 'https://yoomoney.ru/oauth/token?code=' + code + '&client_id=EDE8FEBF1144C98D06058DA8B18964352434E997F6469AE90FEA383411D87FBB&grant_type=authorization_code';
 	}
 </script>
 <body onload="load()"/>
