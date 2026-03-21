@@ -439,9 +439,36 @@
         <span class="font-semibold text-white">21 марта 00:00 МСК</span> до
         <span class="font-semibold text-white">7 апреля 00:00 МСК</span>.
       </section>
+<section class="glass-card relative mt-6 overflow-hidden rounded-[30px] border border-white/10 bg-gradient-to-b from-white/5 to-white/[0.03] p-5 text-sm leading-7 text-slate-300 shadow-glow ring-1 ring-white/5 backdrop-blur-xl sm:p-6">
+  <div class="glass-card relative overflow-hidden rounded-[30px] border border-emerald-300/20 bg-gradient-to-br from-emerald-400/10 via-white/5 to-cyan-400/10 p-6 ring-1 ring-white/5 shadow-[0_20px_60px_rgba(16,185,129,0.10)]">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.12),transparent_30%),radial-gradient(circle_at_bottom_left,rgba(16,185,129,0.14),transparent_35%)]"></div>
+    <div class="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-emerald-300/15 blur-3xl"></div>
+    <div class="absolute left-8 top-0 h-px w-36 bg-gradient-to-r from-transparent via-white/80 to-transparent"></div>
+
+    <div class="relative">
+      <div class="inline-flex items-center rounded-full border border-emerald-300/20 bg-emerald-400/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-emerald-200">
+        Ориентир
+      </div>
+
+      <div class="mt-4 text-sm font-medium text-slate-400">
+        Где сейчас друган по темпу
+      </div>
+
+      <div class="mt-3 bg-gradient-to-b from-emerald-100 via-white to-emerald-300 bg-clip-text text-4xl font-black tracking-[-0.07em] text-transparent sm:text-5xl">
+        <span id="expectedValueFriend">0</span> ₽
+      </div>
+
+      <p class="mt-4 max-w-2xl text-sm leading-6 text-slate-300">
+        Показано, сколько должно было набраться к текущему часу при таком же линейном расчёте.
+      </p>
+    </div>
+  </div>
+</section>
+
     </main>
 
     <script>
+      const FRIEND_TARGET_AMOUNT = 700000;
       const TARGET_AMOUNT = 70000;
       const MSK_OFFSET_HOURS = 3;
 
@@ -533,49 +560,22 @@
         const elapsedMs = Math.max(0, Math.min(now.getTime() - start.getTime(), totalMs));
         const expectedAmount = (TARGET_AMOUNT / totalMs) * elapsedMs;
         const elapsedPercent = (elapsedMs / totalMs) * 100;
-
+        const expectedAmountFriend = (FRIEND_TARGET_AMOUNT / totalMs) * elapsedMs;
         document.getElementById('expectedValue').textContent = formatMoney(expectedAmount);
         document.getElementById('elapsedPercent').textContent = elapsedPercent.toFixed(1);
         document.getElementById('elapsedBar').style.width =
           `${Math.max(0, Math.min(elapsedPercent, 100)).toFixed(1)}%`;
+
+          const friendValue = document.getElementById('expectedValueFriend');
+if (friendValue) {
+  friendValue.textContent = formatMoney(expectedAmountFriend);
+}
       }
 
-      function createStars() {
-        const container = document.getElementById('stars');
-        const starCount = Math.min(70, Math.floor(window.innerWidth / 18));
-
-        container.innerHTML = '';
-
-        for (let i = 0; i < starCount; i++) {
-          const star = document.createElement('span');
-          const size = Math.random() * 2.2 + 0.6;
-          star.className = 'absolute rounded-full bg-white/80 animate-starTwinkle';
-          star.style.width = `${size}px`;
-          star.style.height = `${size}px`;
-          star.style.left = `${Math.random() * 100}%`;
-          star.style.top = `${Math.random() * 100}%`;
-          star.style.opacity = (Math.random() * 0.45 + 0.12).toFixed(2);
-          star.style.animationDelay = `${Math.random() * 5}s`;
-          star.style.animationDuration = `${3 + Math.random() * 5}s`;
-          container.appendChild(star);
-        }
-      }
-
-      function setupMouseGlow() {
-        const root = document.documentElement;
-        window.addEventListener('pointermove', (e) => {
-          root.style.setProperty('--mx', `${e.clientX}px`);
-          root.style.setProperty('--my', `${e.clientY}px`);
-        });
-      }
-
+    
       updateClock();
       updateTimer();
       updatePlanStats();
-      createStars();
-      setupMouseGlow();
-
-      window.addEventListener('resize', createStars);
 
       setInterval(() => {
         updateClock();
