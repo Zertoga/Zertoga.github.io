@@ -1,835 +1,223 @@
 <!doctype html>
-<head>
-  <meta charset="UTF-8" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'system-ui', 'sans-serif'],
+            },
+            colors: {
+              ink: '#050811',
+              panel: '#0b1220',
+              line: 'rgba(255,255,255,0.10)',
+            },
+            boxShadow: {
+              glow: '0 25px 80px rgba(0,0,0,0.45)',
+            },
+            keyframes: {
+              floatA: {
+                '0%, 100%': { transform: 'translateY(0px)' },
+                '50%': { transform: 'translateY(16px)' },
+              },
+              floatB: {
+                '0%, 100%': { transform: 'translateY(0px)' },
+                '50%': { transform: 'translateY(-18px)' },
+              },
+              pulseSoft: {
+                '0%, 100%': { opacity: '0.5', transform: 'scale(1)' },
+                '50%': { opacity: '0.9', transform: 'scale(1.08)' },
+              },
+            },
+            animation: {
+              floatA: 'floatA 10s ease-in-out infinite',
+              floatB: 'floatB 12s ease-in-out infinite',
+              pulseSoft: 'pulseSoft 8s ease-in-out infinite',
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <style>
-      :root {
-        --bg: #050811;
-        --text: #eef4ff;
-        --muted: #9fb3d6;
-        --stroke: rgba(167, 201, 255, 0.14);
-        --blue-1: #8be0ff;
-        --blue-2: #7597ff;
-        --blue-3: #425dff;
-        --success: #8dffbf;
-        --danger: #ff7a97;
-        --warning: #ffd37a;
-        --shadow: 0 24px 70px rgba(0, 0, 0, 0.38);
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-html,
-body {
-  margin: 0;
-  min-height: 100%;
-  background: #050811;
-}
-
-body {
-  overflow-x: hidden;
-  position: relative;
-}
-
-.app {
-  position: relative;
-  z-index: 1;
-  padding-top: 40px;
-}
-      html,
-      body {
-        margin: 0;
-        min-height: 100%;
-        font-family: "Inter", system-ui, sans-serif;
-        color: var(--text);
-        background:
-          radial-gradient(circle at 12% 18%, rgba(91, 127, 255, 0.22), transparent 26%),
-          radial-gradient(circle at 85% 10%, rgba(105, 220, 255, 0.18), transparent 24%),
-          radial-gradient(circle at 50% 80%, rgba(60, 92, 255, 0.16), transparent 30%),
-          linear-gradient(180deg, #09101c 0%, #060913 48%, #04070d 100%);
-      }
-
-      body {
-        overflow-x: hidden;
-        position: relative;
-      }
-
-      .bg-aurora,
-
-      .bg-aurora {
-        overflow: hidden;
-      }
-
-      .bg-aurora::before,
-      .bg-aurora::after {
-        content: "";
-        position: absolute;
-        width: 60vw;
-        height: 60vw;
-        border-radius: 50%;
-        filter: blur(90px);
-        opacity: 0.18;
-        animation-timing-function: ease-in-out;
-        animation-iteration-count: infinite;
-      }
-
-      .bg-aurora::before {
-        top: -10vw;
-        left: -12vw;
-        background: radial-gradient(circle, rgba(125, 211, 252, 0.45) 0%, rgba(66, 93, 255, 0.12) 45%, transparent 72%);
-        animation: auroraA 18s infinite;
-      }
-
-      .bg-aurora::after {
-        right: -16vw;
-        bottom: -18vw;
-        background: radial-gradient(circle, rgba(117, 151, 255, 0.42) 0%, rgba(72, 222, 255, 0.12) 44%, transparent 74%);
-        animation: auroraB 22s infinite;
-      }
-.grid,
-.glow {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-}
-
-.grid {
-  opacity: 0.6;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.06) 2px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 2px, transparent 1px);
-  background-size: 34px 34px;
-  background-position: 0 0, 0 0;
-  mask-image: linear-gradient(to bottom, rgba(255,255,255,0.95), transparent 92%);
-  animation: gridShift 18s linear infinite;
-}
-
-@keyframes gridShift {
-  from {
-    background-position: 0 0, 0 0;
-  }
-  to {
-    background-position: -34px 34px, -34px 34px;
-  }
-}
-
-@keyframes gridShiftReverse {
-  from {
-    background-position: 0 0, 0 0;
-  }
-  to {
-    background-position: 34px -34px, 34px -34px;
-  }
-}
-      .glow::before,
-      .glow::after {
-        content: "";
-        position: absolute;
-        border-radius: 999px;
-        filter: blur(72px);
-        opacity: 0.34;
-      }
-
-      .glow::before {
-        width: 260px;
-        height: 260px;
-        left: -40px;
-        top: 80px;
-        background: linear-gradient(135deg, var(--blue-1), var(--blue-3));
-        animation: floatA 9s ease-in-out infinite;
-      }
-
-      .glow::after {
-        width: 340px;
-        height: 340px;
-        right: -80px;
-        top: 180px;
-        background: linear-gradient(135deg, #70dbff, #5873ff);
-        animation: floatB 11s ease-in-out infinite;
-      }
-
-      .app {
-        position: relative;
-        max-width: 1180px;
-        margin: 0 auto;
-        padding: 40px 18px 40px;
-        z-index: 1;
-      }
-
-      .panel {
-        position: relative;
-        background: linear-gradient(180deg, rgba(17, 25, 44, 0.88), rgba(9, 14, 28, 0.94));
-        border: 1px solid var(--stroke);
-        border-radius: 30px;
-        box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,0.06);
-        backdrop-filter: blur(18px);
-        overflow: hidden;
-      }
-
-      .panel::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(
-          135deg,
-          rgba(123, 209, 255, 0.12),
-          transparent 34%,
-          rgba(83, 114, 255, 0.16) 72%,
-          transparent 100%
-        );
-        pointer-events: none;
-      }
-
-      .hero {
-        padding: 18px;
-      }
-
-      .hero-shell {
-        position: relative;
-        overflow: hidden;
-        border-radius: 26px;
-        border: 1px solid rgba(183, 219, 255, 0.12);
-        background:
-          radial-gradient(circle at top center, rgba(138, 224, 255, 0.08), transparent 38%),
-          linear-gradient(180deg, rgba(10, 18, 36, 0.84), rgba(8, 13, 27, 0.96));
-        padding: 20px 20px 22px;
-      }
-
-      .hero-shell::after {
-        content: "";
-        position: absolute;
-        inset: auto -10% -40% -10%;
-        height: 220px;
-        background: radial-gradient(circle, rgba(85, 120, 255, 0.16), transparent 65%);
-        filter: blur(40px);
-        animation: pulseGlow 7s ease-in-out infinite;
-      }
-
-      .hero-top {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 14px;
-        margin-bottom: 18px;
-        position: relative;
-        z-index: 1;
-      }
-
-      .badge-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-      }
-
-      .badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        min-height: 38px;
-        padding: 9px 14px;
-        border-radius: 999px;
-        border: 1px solid rgba(185, 221, 255, 0.14);
-        background: rgba(255,255,255,0.05);
-        color: #e7f5ff;
-        font-size: 13px;
-        font-weight: 600;
-        box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
-      }
-
-      .badge.soft {
-        color: var(--muted);
-      }
-
-      .hero-title-wrap {
-        position: relative;
-        z-index: 1;
-        text-align: center;
-        max-width: 760px;
-        margin: 0 auto 22px;
-      }
-
-      .eyebrow {
-        display: inline-block;
-        margin-bottom: 10px;
-        padding: 6px 12px;
-        border-radius: 999px;
-        font-size: 12px;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.13em;
-        color: var(--blue-1);
-        background: rgba(101, 151, 255, 0.08);
-        border: 1px solid rgba(160, 200, 255, 0.14);
-      }
-
-      .title {
-        margin: 0 0 12px;
-        font-size: clamp(28px, 4.8vw, 56px);
-        line-height: 0.98;
-        letter-spacing: -0.05em;
-      }
-
-      .subtitle {
-        margin: 0 auto;
-        max-width: 700px;
-        color: var(--muted);
-        font-size: clamp(15px, 1.7vw, 18px);
-        line-height: 1.65;
-      }
-
-      .accent {
-        color: #eef8ff;
-        font-weight: 700;
-      }
-
-      .countdown-stage {
-        position: relative;
-        z-index: 1;
-        display: grid;
-        gap: 18px;
-        max-width: 980px;
-        margin: 0 auto;
-      }
-
-      .countdown-head {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 16px;
-        padding: 0 4px;
-      }
-
-      .countdown-head h2 {
-        margin: 0;
-        font-size: 18px;
-        letter-spacing: -0.02em;
-      }
-
-      .deadline {
-        color: var(--muted);
-        font-size: 14px;
-        text-align: right;
-      }
-
-      .timer {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 14px;
-      }
-
-      .time-box {
-        position: relative;
-        min-height: 150px;
-        padding: 18px 14px;
-        border-radius: 28px;
-        overflow: hidden;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        background:
-          radial-gradient(circle at top, rgba(144, 226, 255, 0.15), transparent 50%),
-          linear-gradient(180deg, rgba(103, 188, 255, 0.16), rgba(64, 92, 255, 0.12));
-        border: 1px solid rgba(186, 223, 255, 0.16);
-        box-shadow:
-          inset 0 1px 0 rgba(255,255,255,0.07),
-          0 12px 30px rgba(22, 34, 74, 0.16);
-      }
-
-      .time-box::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(180deg, rgba(255,255,255,0.11), transparent 40%);
-        pointer-events: none;
-      }
-
-      .time-value {
-        position: relative;
-        z-index: 1;
-        font-size: clamp(36px, 6vw, 62px);
-        font-weight: 800;
-        letter-spacing: -0.06em;
-        line-height: 1;
-      }
-
-      .time-label {
-        position: relative;
-        z-index: 1;
-        margin-top: 10px;
-        color: var(--muted);
-        font-size: 12px;
-        text-transform: uppercase;
-        letter-spacing: 0.14em;
-      }
-
-      .stats-row {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 14px;
-      }
-
-      .stat-card,
-      .status-card {
-        padding: 18px;
-        border-radius: 24px;
-        background: rgba(255,255,255,0.04);
-        border: 1px solid rgba(184, 220, 255, 0.11);
-        box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
-      }
-
-      .stat-label,
-      .status-head {
-        color: var(--muted);
-        font-size: 13px;
-        margin-bottom: 12px;
-      }
-
-      .stat-value {
-        font-size: clamp(24px, 3.4vw, 36px);
-        font-weight: 800;
-        letter-spacing: -0.05em;
-        line-height: 1.05;
-      }
-
-      .stat-note {
-        margin-top: 8px;
-        color: var(--muted);
-        font-size: 13px;
-        line-height: 1.55;
-      }
-
-      .stat-card.warning .stat-value {
-        color: var(--warning);
-      }
-
-      .status-grid {
-        display: grid;
-        gap: 10px;
-      }
-
-      .status-pill {
-        padding: 14px;
-        border-radius: 18px;
-        background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-        border: 1px solid rgba(187, 221, 255, 0.11);
-      }
-
-      .status-pill strong {
-        display: block;
-        margin-bottom: 6px;
-        font-size: 14px;
-      }
-
-      .status-pill span {
-        display: block;
-        color: var(--muted);
-        font-size: 13px;
-        line-height: 1.55;
-      }
-
-      .status-pill.danger {
-        border-color: rgba(255, 122, 151, 0.18);
-        background: linear-gradient(180deg, rgba(255, 122, 151, 0.08), rgba(255,255,255,0.02));
-      }
-
-      .expired {
-        display: none;
-        padding: 16px 18px;
-        border-radius: 18px;
-        border: 1px solid rgba(255, 118, 145, 0.25);
-        background: rgba(255, 107, 129, 0.08);
-        color: #ffd7de;
-        font-size: 14px;
-        line-height: 1.6;
-      }
-
-      .content-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
-        margin-top: 20px;
-      }
-
-      .section {
-        padding: 20px;
-      }
-
-      .section-header {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin-bottom: 16px;
-      }
-
-      .section-title {
-        margin: 0;
-        font-size: 18px;
-        letter-spacing: -0.02em;
-      }
-
-      .buff .section-header {
-        color: var(--success);
-      }
-
-      .debuff .section-header {
-        color: var(--danger);
-      }
-
-      .list {
-        display: grid;
-        gap: 12px;
-      }
-
-      .item {
-        min-height: 116px;
-        padding: 16px;
-        border-radius: 22px;
-        background: rgba(255,255,255,0.03);
-        border: 1px solid rgba(183, 219, 255, 0.1);
-      }
-
-      .item strong {
-        display: block;
-        margin-bottom: 8px;
-        font-size: 15px;
-      }
-
-      .item span {
-        color: var(--muted);
-        font-size: 14px;
-        line-height: 1.58;
-      }
-
-      .footer-note {
-        margin-top: 20px;
-        padding: 20px 22px;
-        border-radius: 24px;
-        background: linear-gradient(180deg, rgba(13, 19, 36, 0.92), rgba(8, 12, 24, 0.96));
-        border: 1px solid rgba(170, 209, 255, 0.12);
-        color: var(--muted);
-        font-size: 14px;
-        line-height: 1.7;
-      }
-
-
-      @keyframes auroraA {
-        0%, 100% {
-          transform: translate3d(0, 0, 0) scale(1);
-        }
-        50% {
-          transform: translate3d(8vw, 5vh, 0) scale(1.08);
-        }
-      }
-
-      @keyframes auroraB {
-        0%, 100% {
-          transform: translate3d(0, 0, 0) scale(1);
-        }
-        50% {
-          transform: translate3d(-7vw, -4vh, 0) scale(1.1);
-        }
-      }
-
-      @keyframes pulseGlow {
-        0%, 100% {
-          transform: scale(1) translateY(0);
-          opacity: 0.65;
-        }
-        50% {
-          transform: scale(1.08) translateY(-6px);
-          opacity: 0.95;
-        }
-      }
-
-      @keyframes floatA {
-        0%, 100% {
-          transform: translateY(0px);
-        }
-        50% {
-          transform: translateY(18px);
-        }
-      }
-
-      @keyframes floatB {
-        0%, 100% {
-          transform: translateY(0px);
-        }
-        50% {
-          transform: translateY(-16px);
-        }
-      }
-
-      @media (max-width: 1100px) {
-        .app {
-          max-width: 980px;
-        }
-
-        .stats-row {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-
-        .status-card {
-          grid-column: span 2;
-        }
-      }
-
-      @media (max-width: 900px) {
-        .app {
-          padding: 40px 14px 32px;
-        }
-
-        .hero-shell {
-          padding: 18px 16px 18px;
-        }
-
-        .hero-top {
-          flex-direction: column;
-          align-items: flex-start;
-        }
-
-        .hero-title-wrap {
-          margin-bottom: 18px;
-        }
-
-        .timer {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-
-        .content-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .time-box {
-          min-height: 128px;
-        }
-      }
-
-      @media (max-width: 640px) {
-        .panel,
-        .hero-shell,
-        .time-box,
-        .stat-card,
-        .status-card,
-        .item,
-        .footer-note {
-          border-radius: 20px;
-        }
-
-        .title {
-          font-size: clamp(26px, 9vw, 40px);
-        }
-
-        .subtitle {
-          font-size: 15px;
-        }
-
-        .countdown-head {
-          flex-direction: column;
-          align-items: flex-start;
-        }
-
-        .deadline {
-          text-align: left;
-        }
-
-        .timer,
-        .stats-row {
-          grid-template-columns: 1fr;
-          gap: 10px;
-        }
-
-        .status-card {
-          grid-column: auto;
-        }
-
-        .time-box {
-          min-height: 110px;
-          padding: 14px 10px;
-        }
-
-        .time-value {
-          font-size: clamp(32px, 10vw, 46px);
-        }
-
-        .badge-row {
-          gap: 8px;
-        }
-
-        .badge {
-          font-size: 12px;
-          padding: 8px 12px;
-          min-height: 34px;
-        }
-      }
-      .top-safe-fill {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: env(safe-area-inset-top);
-  background: #050811;
-  z-index: 0;
-  pointer-events: none;
-}
-    </style>
   </head>
-  <body>
-      <div class="top-safe-fill"></div>
+  <body class="min-h-screen overflow-x-hidden bg-[#050811] text-slate-100 antialiased">
+    <div class="fixed inset-0 -z-20 bg-[radial-gradient(circle_at_15%_20%,rgba(56,189,248,0.18),transparent_24%),radial-gradient(circle_at_85%_10%,rgba(99,102,241,0.18),transparent_22%),radial-gradient(circle_at_50%_85%,rgba(59,130,246,0.14),transparent_30%),linear-gradient(180deg,#09101c_0%,#060913_48%,#04070d_100%)]"></div>
+    <div class="pointer-events-none fixed inset-0 -z-10 opacity-30 [background-image:linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] [background-size:32px_32px] [mask-image:linear-gradient(to_bottom,rgba(255,255,255,1),transparent_90%)]"></div>
 
-    <div class="grid"></div>
-    <main class="app">
-      <section class="panel hero">
-        <div class="hero-shell">
-          <div class="hero-top">
-            <div class="badge-row">
-              <span class="badge">Режим активен</span>
-              <span class="badge soft">Старт: 21 марта, 00:00 МСК</span>
-            </div>
-            <div class="badge soft">Сейчас по МСК: <span id="nowTime">--:--</span></div>
-          </div>
+    <div class="pointer-events-none fixed -left-16 top-20 -z-10 h-72 w-72 rounded-full bg-cyan-400/20 blur-3xl animate-floatA"></div>
+    <div class="pointer-events-none fixed -right-16 top-40 -z-10 h-80 w-80 rounded-full bg-indigo-500/20 blur-3xl animate-floatB"></div>
+    <div class="pointer-events-none fixed inset-x-0 bottom-[-120px] -z-10 mx-auto h-72 w-[70vw] rounded-full bg-blue-500/10 blur-3xl animate-pulseSoft"></div>
 
-          <div class="hero-title-wrap">
-            <h1 class="title">Мотивацию надо поднять!</h1>
-            <p class="subtitle">
-              Цель — собрать <span class="accent">70 000 ₽</span> только из
-              <span class="accent">рабочего дохода</span>. Ниже показывается,
-              сколько <span class="accent">должно было быть заработано</span> к текущему часу,
-              если идти по ровному темпу от 21 марта 00:00 МСК до 7 апреля 00:00 МСК.
-            </p>
-          </div>
-
-          <div class="countdown-stage">
-            <div class="countdown-head">
-              <h2>До конца режима осталось</h2>
-              <div class="deadline">Финиш: 7 апреля, 00:00 МСК</div>
-            </div>
-
-            <div class="timer">
-              <div class="time-box">
-                <div class="time-value" id="days">00</div>
-                <div class="time-label">дней</div>
+    <main class="mx-auto max-w-7xl px-4 pb-10 pt-8 sm:px-6 lg:px-8">
+      <section class="relative overflow-hidden rounded-[32px] border border-white/10 bg-white/5 shadow-glow backdrop-blur-xl">
+        <div class="absolute inset-0 bg-[linear-gradient(135deg,rgba(125,211,252,0.10),transparent_35%,rgba(99,102,241,0.12)_75%,transparent_100%)]"></div>
+        <div class="relative p-4 sm:p-6 lg:p-8">
+          <div class="rounded-[28px] border border-white/10 bg-slate-950/50 p-4 sm:p-6 lg:p-7">
+            <div class="mb-6 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+              <div class="flex flex-wrap gap-2.5">
+                <span class="inline-flex items-center rounded-full border border-emerald-300/20 bg-emerald-400/10 px-4 py-2 text-sm font-semibold text-emerald-200">Режим активен</span>
+                <span class="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-slate-300">Старт: 21 марта, 00:00 МСК</span>
               </div>
-              <div class="time-box">
-                <div class="time-value" id="hours">00</div>
-                <div class="time-label">часов</div>
-              </div>
-              <div class="time-box">
-                <div class="time-value" id="minutes">00</div>
-                <div class="time-label">минут</div>
-              </div>
-              <div class="time-box">
-                <div class="time-value" id="seconds">00</div>
-                <div class="time-label">секунд</div>
+              <div class="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-slate-300">
+                Сейчас по МСК:&nbsp;<span id="nowTime" class="font-semibold text-white">--:--</span>
               </div>
             </div>
 
-            <div class="stats-row">
-              <div class="stat-card warning">
-                <div class="stat-label">Должно было быть к этому часу</div>
-                <div class="stat-value"><span id="expectedValue">0</span> ₽</div>
-                <div class="stat-note">
-                  Расчёт: 70 000 ₽ делятся на всё время режима и умножаются на уже прошедшее время.
+            <div class="mx-auto mb-8 max-w-4xl text-center">
+              <div class="mb-4 inline-flex rounded-full border border-cyan-300/15 bg-cyan-400/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.22em] text-cyan-200">
+                Финансовый режим
+              </div>
+              <h1 class="text-4xl font-extrabold tracking-[-0.06em] text-white sm:text-5xl lg:text-6xl">
+                Мотивацию надо поднять!
+              </h1>
+              <p class="mx-auto mt-4 max-w-3xl text-sm leading-7 text-slate-300 sm:text-base sm:leading-8 lg:text-lg">
+                Цель — собрать <span class="font-semibold text-white">70 000 ₽</span> только из
+                <span class="font-semibold text-white">рабочего дохода</span>. Ниже видно,
+                сколько <span class="font-semibold text-white">должно было быть заработано</span>
+                к текущему часу, если идти ровно от <span class="font-semibold text-white">21 марта 00:00 МСК</span>
+                до <span class="font-semibold text-white">7 апреля 00:00 МСК</span>.
+              </p>
+            </div>
+
+            <div class="mx-auto max-w-6xl space-y-6">
+              <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+                <div>
+                  <h2 class="text-lg font-semibold tracking-tight text-white sm:text-xl">До конца режима осталось</h2>
+                  <p class="mt-1 text-sm text-slate-400">Финиш: 7 апреля, 00:00 МСК</p>
+                </div>
+                <div class="text-sm text-slate-400">Линейный отсчёт до финальной суммы</div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
+                <div class="rounded-[26px] border border-cyan-200/10 bg-gradient-to-b from-cyan-300/10 to-indigo-500/10 p-5 text-center shadow-inner shadow-white/5">
+                  <div id="days" class="text-4xl font-extrabold tracking-[-0.06em] text-white sm:text-5xl">00</div>
+                  <div class="mt-2 text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">дней</div>
+                </div>
+                <div class="rounded-[26px] border border-cyan-200/10 bg-gradient-to-b from-cyan-300/10 to-indigo-500/10 p-5 text-center shadow-inner shadow-white/5">
+                  <div id="hours" class="text-4xl font-extrabold tracking-[-0.06em] text-white sm:text-5xl">00</div>
+                  <div class="mt-2 text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">часов</div>
+                </div>
+                <div class="rounded-[26px] border border-cyan-200/10 bg-gradient-to-b from-cyan-300/10 to-indigo-500/10 p-5 text-center shadow-inner shadow-white/5">
+                  <div id="minutes" class="text-4xl font-extrabold tracking-[-0.06em] text-white sm:text-5xl">00</div>
+                  <div class="mt-2 text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">минут</div>
+                </div>
+                <div class="rounded-[26px] border border-cyan-200/10 bg-gradient-to-b from-cyan-300/10 to-indigo-500/10 p-5 text-center shadow-inner shadow-white/5">
+                  <div id="seconds" class="text-4xl font-extrabold tracking-[-0.06em] text-white sm:text-5xl">00</div>
+                  <div class="mt-2 text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">секунд</div>
                 </div>
               </div>
 
-              <div class="stat-card">
-                <div class="stat-label">Прошло от всего периода</div>
-                <div class="stat-value"><span id="elapsedPercent">0</span>%</div>
-                <div class="stat-note">
-                  Линейная доля от временного окна между 21 марта 00:00 МСК и 7 апреля 00:00 МСК.
+              <div class="grid gap-4 lg:grid-cols-12">
+                <div class="rounded-[26px] border border-amber-300/15 bg-amber-300/5 p-5 lg:col-span-4">
+                  <div class="text-sm font-medium text-slate-400">Должно было быть к этому часу</div>
+                  <div class="mt-3 text-3xl font-extrabold tracking-[-0.06em] text-amber-200 sm:text-4xl"><span id="expectedValue">0</span> ₽</div>
+                  <p class="mt-3 text-sm leading-6 text-slate-400">
+                    70 000 ₽ делятся на всё время режима и умножаются на уже прошедшее время.
+                  </p>
                 </div>
-              </div>
 
-              <div class="status-card">
-                <div class="status-head">Условия режима</div>
-                <div class="status-grid">
-                  <div class="status-pill">
-                    <strong>Если цель выполнена</strong>
-                    <span>70 000 ₽ до дедлайна = ещё 2 недели проживания.</span>
+                <div class="rounded-[26px] border border-white/10 bg-white/5 p-5 lg:col-span-3">
+                  <div class="text-sm font-medium text-slate-400">Прошло от всего периода</div>
+                  <div class="mt-3 text-3xl font-extrabold tracking-[-0.06em] text-white sm:text-4xl"><span id="elapsedPercent">0</span>%</div>
+                  <p class="mt-3 text-sm leading-6 text-slate-400">
+                    Доля от временного окна между 21 марта и 7 апреля.
+                  </p>
+                </div>
+
+                <div class="rounded-[26px] border border-white/10 bg-white/5 p-5 lg:col-span-5">
+                  <div class="text-sm font-medium text-slate-400">Условия режима</div>
+                  <div class="mt-4 space-y-3">
+                    <div class="rounded-2xl border border-emerald-300/15 bg-emerald-400/5 p-4">
+                      <strong class="block text-sm font-semibold text-emerald-200">Если цель выполнена</strong>
+                      <span class="mt-1 block text-sm leading-6 text-slate-300">70 000 ₽ до дедлайна = ещё 2 недели проживания.</span>
+                    </div>
+                    <div class="rounded-2xl border border-rose-300/15 bg-rose-400/5 p-4">
+                      <strong class="block text-sm font-semibold text-rose-200">Если цель провалена</strong>
+                      <span class="mt-1 block text-sm leading-6 text-slate-300">Меньше 70 000 ₽ к сроку = выселение из квартиры.</span>
+                    </div>
                   </div>
-                  <div class="status-pill danger">
-                    <strong>Если цель провалена</strong>
-                    <span>Меньше 70 000 ₽ к сроку = выселение из квартиры.</span>
-                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="expired" id="expiredBox"></div>
+              <div id="expiredBox" class="hidden rounded-2xl border border-rose-300/20 bg-rose-400/10 px-4 py-3 text-sm leading-6 text-rose-100"></div>
+            </div>
           </div>
         </div>
       </section>
 
-      <section class="content-grid">
-        <article class="panel section buff">
-          <div class="section-header">
-            <span>✨</span>
-            <h3 class="section-title">Плюсы режима</h3>
+      <section class="mt-6 grid gap-6 lg:grid-cols-2">
+        <article class="rounded-[30px] border border-white/10 bg-white/5 p-5 shadow-glow backdrop-blur-xl sm:p-6">
+          <div class="mb-5 flex items-center gap-3">
+            <div class="flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-400/10 text-lg">✨</div>
+            <div>
+              <h3 class="text-xl font-semibold tracking-tight text-white">Плюсы режима</h3>
+              <p class="text-sm text-slate-400">Что усиливает дисциплину и ясность</p>
+            </div>
           </div>
 
-          <div class="list">
-            <div class="item">
-              <strong>Фокус только на реальном доходе</strong>
-              <span>Считаются только деньги, заработанные на работе. Это убирает иллюзии и показывает настоящий результат.</span>
+          <div class="space-y-3">
+            <div class="rounded-[22px] border border-white/10 bg-slate-950/40 p-4">
+              <strong class="block text-sm font-semibold text-white">Фокус только на реальном доходе</strong>
+              <span class="mt-2 block text-sm leading-6 text-slate-300">Считаются только деньги, заработанные на работе. Это убирает иллюзии и показывает настоящий результат.</span>
             </div>
-
-            <div class="item">
-              <strong>Понятный темп до дедлайна</strong>
-              <span>Сразу видно, какая сумма должна была накопиться к текущему часу при ровном движении к цели.</span>
+            <div class="rounded-[22px] border border-white/10 bg-slate-950/40 p-4">
+              <strong class="block text-sm font-semibold text-white">Понятный темп до дедлайна</strong>
+              <span class="mt-2 block text-sm leading-6 text-slate-300">Сразу видно, какая сумма должна была накопиться к текущему часу при ровном движении к цели.</span>
             </div>
-
-            <div class="item">
-              <strong>Награда за дисциплину</strong>
-              <span>Если сумма собрана вовремя, появляется бонус: можно остаться ещё на 2 недели.</span>
+            <div class="rounded-[22px] border border-white/10 bg-slate-950/40 p-4">
+              <strong class="block text-sm font-semibold text-white">Награда за дисциплину</strong>
+              <span class="mt-2 block text-sm leading-6 text-slate-300">Если сумма собрана вовремя, появляется бонус: можно остаться ещё на 2 недели.</span>
             </div>
           </div>
         </article>
 
-        <article class="panel section debuff">
-          <div class="section-header">
-            <span>⚠️</span>
-            <h3 class="section-title">Минусы режима</h3>
+        <article class="rounded-[30px] border border-white/10 bg-white/5 p-5 shadow-glow backdrop-blur-xl sm:p-6">
+          <div class="mb-5 flex items-center gap-3">
+            <div class="flex h-10 w-10 items-center justify-center rounded-2xl bg-rose-400/10 text-lg">⚠️</div>
+            <div>
+              <h3 class="text-xl font-semibold tracking-tight text-white">Минусы режима</h3>
+              <p class="text-sm text-slate-400">Что создаёт давление и риск</p>
+            </div>
           </div>
 
-          <div class="list">
-            <div class="item">
-              <strong>Главный риск — выселение</strong>
-              <span>Если к концу срока не будет накоплено 70 000 ₽, срабатывает жёсткий штраф по условиям режима.</span>
+          <div class="space-y-3">
+            <div class="rounded-[22px] border border-white/10 bg-slate-950/40 p-4">
+              <strong class="block text-sm font-semibold text-white">Главный риск — выселение</strong>
+              <span class="mt-2 block text-sm leading-6 text-slate-300">Если к концу срока не будет накоплено 70 000 ₽, срабатывает жёсткий штраф по условиям режима.</span>
             </div>
-
-            <div class="item">
-              <strong>Нельзя закрыть цель обходным способом</strong>
-              <span>Деньги из казино, ставок, крипты, любой интернет-деятельности и взятые в долг не засчитываются.</span>
+            <div class="rounded-[22px] border border-white/10 bg-slate-950/40 p-4">
+              <strong class="block text-sm font-semibold text-white">Нельзя закрыть цель обходным способом</strong>
+              <span class="mt-2 block text-sm leading-6 text-slate-300">Деньги из казино, ставок, крипты, любой интернет-деятельности и взятые в долг не засчитываются.</span>
             </div>
-
-            <div class="item">
-              <strong>Давление по времени остаётся жёстким</strong>
-              <span>Каждый час двигает плановую сумму выше, поэтому режим постоянно напоминает о дедлайне.</span>
+            <div class="rounded-[22px] border border-white/10 bg-slate-950/40 p-4">
+              <strong class="block text-sm font-semibold text-white">Давление по времени остаётся жёстким</strong>
+              <span class="mt-2 block text-sm leading-6 text-slate-300">Каждый час двигает плановую сумму выше, поэтому режим постоянно напоминает о дедлайне.</span>
             </div>
-
-            <div class="item">
-              <strong>Никаких красивых оправданий</strong>
-              <span>Есть только дедлайн, целевая сумма и честный темп, который должен был быть выдержан.</span>
+            <div class="rounded-[22px] border border-white/10 bg-slate-950/40 p-4">
+              <strong class="block text-sm font-semibold text-white">Никаких красивых оправданий</strong>
+              <span class="mt-2 block text-sm leading-6 text-slate-300">Есть только дедлайн, целевая сумма и честный темп, который должен был быть выдержан.</span>
             </div>
           </div>
         </article>
       </section>
 
-      <section class="footer-note">
-        <strong class="accent">Условие режима:</strong> итоговая сумма учитывается только с заработанных денег на работе.
+      <section class="mt-6 rounded-[28px] border border-white/10 bg-gradient-to-b from-white/5 to-white/[0.03] p-5 text-sm leading-7 text-slate-300 shadow-glow backdrop-blur-xl sm:p-6">
+        <span class="font-semibold text-white">Условие режима:</span> итоговая сумма учитывается только с заработанных денег на работе.
         Любые поступления из казино, ставок, крипты, интернет-деятельности и денег, взятых в долг,
-        <strong class="accent">не считаются</strong>. Плановая сумма рассчитывается линейно от
-        <strong class="accent">21 марта 00:00 МСК</strong> до <strong class="accent">7 апреля 00:00 МСК</strong>.
+        <span class="font-semibold text-white">не считаются</span>. Плановая сумма рассчитывается линейно от
+        <span class="font-semibold text-white">21 марта 00:00 МСК</span> до
+        <span class="font-semibold text-white">7 апреля 00:00 МСК</span>.
       </section>
     </main>
 
@@ -838,11 +226,11 @@ body {
       const MSK_OFFSET_HOURS = 3;
 
       function formatMoney(value) {
-        return new Intl.NumberFormat("ru-RU").format(Math.round(value));
+        return new Intl.NumberFormat('ru-RU').format(Math.round(value));
       }
 
       function pad(value) {
-        return String(value).padStart(2, "0");
+        return String(value).padStart(2, '0');
       }
 
       function getModeYearFromMSK(nowUtc) {
@@ -862,12 +250,12 @@ body {
         const nowUtc = new Date();
         const year = getModeYearFromMSK(nowUtc);
 
-        const startUtc = Date.UTC(year, 2, 20, 21, 0, 0);    // 21 марта 00:00 МСК
-        const deadlineUtc = Date.UTC(year, 3, 6, 21, 0, 0);  // 7 апреля 00:00 МСК
+        const startUtc = Date.UTC(year, 2, 20, 21, 0, 0);
+        const deadlineUtc = Date.UTC(year, 3, 6, 21, 0, 0);
 
         return {
           start: new Date(startUtc),
-          deadline: new Date(deadlineUtc)
+          deadline: new Date(deadlineUtc),
         };
       }
 
@@ -878,44 +266,42 @@ body {
         return {
           hours: nowMsk.getUTCHours(),
           minutes: nowMsk.getUTCMinutes(),
-          seconds: nowMsk.getUTCSeconds()
+          seconds: nowMsk.getUTCSeconds(),
         };
       }
 
       function updateClock() {
         const msk = getMSKNowParts();
-        document.getElementById("nowTime").textContent =
-          `${pad(msk.hours)}:${pad(msk.minutes)}:${pad(msk.seconds)}`;
+        document.getElementById('nowTime').textContent = `${pad(msk.hours)}:${pad(msk.minutes)}:${pad(msk.seconds)}`;
       }
 
       function updateTimer() {
         const { deadline } = getPeriodBoundsUTC();
         const now = new Date();
         const diff = deadline.getTime() - now.getTime();
-        const expiredBox = document.getElementById("expiredBox");
+        const expiredBox = document.getElementById('expiredBox');
 
         if (diff <= 0) {
-          document.getElementById("days").textContent = "00";
-          document.getElementById("hours").textContent = "00";
-          document.getElementById("minutes").textContent = "00";
-          document.getElementById("seconds").textContent = "00";
-          expiredBox.style.display = "block";
-          expiredBox.textContent =
-            "Срок режима вышел. Плановая сумма достигла финальной отметки 70 000 ₽.";
+          document.getElementById('days').textContent = '00';
+          document.getElementById('hours').textContent = '00';
+          document.getElementById('minutes').textContent = '00';
+          document.getElementById('seconds').textContent = '00';
+          expiredBox.classList.remove('hidden');
+          expiredBox.textContent = 'Срок режима вышел. Плановая сумма достигла финальной отметки 70 000 ₽.';
           return;
         }
 
-        expiredBox.style.display = "none";
+        expiredBox.classList.add('hidden');
 
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
         const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
         const minutes = Math.floor((diff / (1000 * 60)) % 60);
         const seconds = Math.floor((diff / 1000) % 60);
 
-        document.getElementById("days").textContent = pad(days);
-        document.getElementById("hours").textContent = pad(hours);
-        document.getElementById("minutes").textContent = pad(minutes);
-        document.getElementById("seconds").textContent = pad(seconds);
+        document.getElementById('days').textContent = pad(days);
+        document.getElementById('hours').textContent = pad(hours);
+        document.getElementById('minutes').textContent = pad(minutes);
+        document.getElementById('seconds').textContent = pad(seconds);
       }
 
       function updatePlanStats() {
@@ -927,8 +313,8 @@ body {
         const expectedAmount = (TARGET_AMOUNT / totalMs) * elapsedMs;
         const elapsedPercent = (elapsedMs / totalMs) * 100;
 
-        document.getElementById("expectedValue").textContent = formatMoney(expectedAmount);
-        document.getElementById("elapsedPercent").textContent = elapsedPercent.toFixed(1);
+        document.getElementById('expectedValue').textContent = formatMoney(expectedAmount);
+        document.getElementById('elapsedPercent').textContent = elapsedPercent.toFixed(1);
       }
 
       updateClock();
