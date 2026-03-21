@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+
     <script>
       tailwind.config = {
         theme: {
@@ -21,22 +22,26 @@
             boxShadow: {
               glow: '0 25px 80px rgba(0,0,0,0.45)',
               card: '0 10px 30px rgba(15,23,42,0.25)',
+              neon: '0 0 0 1px rgba(255,255,255,0.04), 0 10px 40px rgba(56,189,248,0.10), 0 20px 80px rgba(99,102,241,0.16)',
             },
             backgroundImage: {
-              'hero-mesh': 'radial-gradient(circle at 20% 20%, rgba(34,211,238,0.16), transparent 25%), radial-gradient(circle at 80% 0%, rgba(129,140,248,0.18), transparent 24%), radial-gradient(circle at 50% 100%, rgba(59,130,246,0.14), transparent 28%)',
+              'hero-mesh':
+                'radial-gradient(circle at 20% 20%, rgba(34,211,238,0.16), transparent 25%), radial-gradient(circle at 80% 0%, rgba(129,140,248,0.18), transparent 24%), radial-gradient(circle at 50% 100%, rgba(59,130,246,0.14), transparent 28%)',
+              'card-glow':
+                'linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.03) 30%, rgba(56,189,248,0.08) 70%, rgba(99,102,241,0.10))',
             },
             keyframes: {
               floatA: {
-                '0%, 100%': { transform: 'translateY(0px)' },
-                '50%': { transform: 'translateY(16px)' },
+                '0%, 100%': { transform: 'translateY(0px) translateX(0px)' },
+                '50%': { transform: 'translateY(16px) translateX(8px)' },
               },
               floatB: {
-                '0%, 100%': { transform: 'translateY(0px)' },
-                '50%': { transform: 'translateY(-18px)' },
+                '0%, 100%': { transform: 'translateY(0px) translateX(0px)' },
+                '50%': { transform: 'translateY(-18px) translateX(-10px)' },
               },
               pulseSoft: {
-                '0%, 100%': { opacity: '0.5', transform: 'scale(1)' },
-                '50%': { opacity: '0.9', transform: 'scale(1.08)' },
+                '0%, 100%': { opacity: '0.45', transform: 'scale(1)' },
+                '50%': { opacity: '0.95', transform: 'scale(1.08)' },
               },
               shine: {
                 '0%': { transform: 'translateX(-120%) skewX(-18deg)' },
@@ -50,6 +55,34 @@
                 '0%, 100%': { transform: 'rotate(0deg) translateY(0px)' },
                 '50%': { transform: 'rotate(1deg) translateY(-4px)' },
               },
+              aurora: {
+                '0%': { transform: 'translate3d(-10%, 0, 0) scale(1)', opacity: '0.45' },
+                '25%': { transform: 'translate3d(6%, -4%, 0) scale(1.08)', opacity: '0.7' },
+                '50%': { transform: 'translate3d(10%, 3%, 0) scale(0.98)', opacity: '0.55' },
+                '75%': { transform: 'translate3d(-4%, 6%, 0) scale(1.05)', opacity: '0.78' },
+                '100%': { transform: 'translate3d(-10%, 0, 0) scale(1)', opacity: '0.45' },
+              },
+              drift: {
+                '0%': { transform: 'translateY(0px) translateX(0px)' },
+                '50%': { transform: 'translateY(-12px) translateX(6px)' },
+                '100%': { transform: 'translateY(0px) translateX(0px)' },
+              },
+              starTwinkle: {
+                '0%, 100%': { opacity: '0.15', transform: 'scale(1)' },
+                '50%': { opacity: '0.9', transform: 'scale(1.35)' },
+              },
+              borderFlow: {
+                '0%' : { backgroundPosition: '0% 50%' },
+                '100%': { backgroundPosition: '200% 50%' },
+              },
+              breathe: {
+                '0%,100%': { transform: 'scale(1)', opacity: '0.75' },
+                '50%': { transform: 'scale(1.03)', opacity: '1' },
+              },
+              slideGlow: {
+                '0%': { transform: 'translateX(-35%)' },
+                '100%': { transform: 'translateX(135%)' },
+              },
             },
             animation: {
               floatA: 'floatA 10s ease-in-out infinite',
@@ -58,54 +91,160 @@
               shine: 'shine 4.5s linear infinite',
               pulseRing: 'pulseRing 6s ease-in-out infinite',
               tilt: 'tilt 9s ease-in-out infinite',
+              aurora: 'aurora 16s ease-in-out infinite',
+              drift: 'drift 8s ease-in-out infinite',
+              starTwinkle: 'starTwinkle 4s ease-in-out infinite',
+              borderFlow: 'borderFlow 8s linear infinite',
+              breathe: 'breathe 5s ease-in-out infinite',
+              slideGlow: 'slideGlow 3.6s linear infinite',
             },
           },
         },
       };
     </script>
+
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body::selection {
+        background: rgba(103, 232, 249, 0.25);
+      }
+
+      .noise {
+        background-image:
+          radial-gradient(rgba(255,255,255,0.06) 0.6px, transparent 0.6px);
+        background-size: 12px 12px;
+        mask-image: radial-gradient(circle at center, black 30%, transparent 100%);
+      }
+
+      .glass-card {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .glass-card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        padding: 1px;
+        background: linear-gradient(
+          120deg,
+          rgba(255,255,255,0.14),
+          rgba(255,255,255,0.03),
+          rgba(56,189,248,0.18),
+          rgba(99,102,241,0.18),
+          rgba(255,255,255,0.04)
+        );
+        background-size: 200% 200%;
+        animation: borderFlow 8s linear infinite;
+        -webkit-mask:
+          linear-gradient(#000 0 0) content-box,
+          linear-gradient(#000 0 0);
+        -webkit-mask-composite: xor;
+                mask-composite: exclude;
+        pointer-events: none;
+      }
+
+      .hero-spotlight {
+        background:
+          radial-gradient(500px circle at var(--mx, 50%) var(--my, 50%), rgba(125, 211, 252, 0.11), transparent 45%);
+      }
+
+      .metric-pop {
+        transform-style: preserve-3d;
+        will-change: transform;
+      }
+
+      .metric-pop:hover {
+        transform: translateY(-6px) scale(1.01);
+      }
+
+      .progress-sheen::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        width: 35%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent);
+        filter: blur(8px);
+        animation: slideGlow 3.6s linear infinite;
+      }
+    </style>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
       rel="stylesheet"
     />
   </head>
+
   <body class="min-h-screen overflow-x-hidden bg-[#050811] text-slate-100 antialiased">
-    <div class="fixed inset-0 -z-20 bg-[radial-gradient(circle_at_15%_20%,rgba(56,189,248,0.18),transparent_24%),radial-gradient(circle_at_85%_10%,rgba(99,102,241,0.18),transparent_22%),radial-gradient(circle_at_50%_85%,rgba(59,130,246,0.14),transparent_30%),linear-gradient(180deg,#09101c_0%,#060913_48%,#04070d_100%)]"></div>
-    <div class="pointer-events-none fixed inset-0 -z-10 opacity-30 [background-image:linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] [background-size:32px_32px] [mask-image:linear-gradient(to_bottom,rgba(255,255,255,1),transparent_90%)]"></div>
+    <div class="fixed inset-0 -z-30 bg-[linear-gradient(180deg,#08101d_0%,#060913_45%,#04070d_100%)]"></div>
+
+    <div class="pointer-events-none fixed inset-0 -z-20 overflow-hidden">
+      <div class="absolute -left-[10%] top-[-8%] h-[40rem] w-[40rem] rounded-full bg-cyan-400/15 blur-3xl animate-aurora"></div>
+      <div class="absolute right-[-12%] top-[0%] h-[36rem] w-[36rem] rounded-full bg-indigo-500/20 blur-3xl animate-aurora" style="animation-delay: -5s"></div>
+      <div class="absolute left-[20%] bottom-[-18%] h-[34rem] w-[34rem] rounded-full bg-blue-500/15 blur-3xl animate-aurora" style="animation-delay: -10s"></div>
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(56,189,248,0.15),transparent_20%),radial-gradient(circle_at_85%_10%,rgba(99,102,241,0.16),transparent_18%),radial-gradient(circle_at_50%_85%,rgba(59,130,246,0.12),transparent_26%)]"></div>
+    </div>
+
+    <div class="pointer-events-none fixed inset-0 -z-10 opacity-30 [background-image:linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] [background-size:32px_32px] [mask-image:linear-gradient(to_bottom,rgba(255,255,255,1),transparent_92%)]"></div>
+
+    <div class="noise pointer-events-none fixed inset-0 -z-10 opacity-[0.07]"></div>
+    <div id="mouseGlow" class="hero-spotlight pointer-events-none fixed inset-0 -z-10 transition-opacity duration-300 opacity-100"></div>
 
     <div class="pointer-events-none fixed -left-16 top-20 -z-10 h-72 w-72 rounded-full bg-cyan-400/20 blur-3xl animate-floatA"></div>
     <div class="pointer-events-none fixed -right-16 top-40 -z-10 h-80 w-80 rounded-full bg-indigo-500/20 blur-3xl animate-floatB"></div>
     <div class="pointer-events-none fixed inset-x-0 bottom-[-120px] -z-10 mx-auto h-72 w-[70vw] rounded-full bg-blue-500/10 blur-3xl animate-pulseSoft"></div>
 
+    <div id="stars" class="pointer-events-none fixed inset-0 -z-10"></div>
+
     <main class="mx-auto max-w-7xl px-4 pb-10 pt-8 sm:px-6 lg:px-8">
-      <section class="relative overflow-hidden rounded-[36px] border border-white/10 bg-white/5 shadow-glow backdrop-blur-2xl">
+      <section class="glass-card relative overflow-hidden rounded-[36px] border border-white/10 bg-white/5 shadow-glow backdrop-blur-2xl">
         <div class="absolute inset-0 bg-hero-mesh"></div>
         <div class="absolute inset-0 bg-[linear-gradient(135deg,rgba(125,211,252,0.10),transparent_35%,rgba(99,102,241,0.12)_75%,transparent_100%)]"></div>
+        <div class="pointer-events-none absolute inset-0 opacity-40 [mask-image:radial-gradient(circle_at_center,black,transparent_82%)]">
+          <div class="absolute left-[-5%] top-[20%] h-48 w-48 rounded-full bg-cyan-300/10 blur-3xl animate-drift"></div>
+          <div class="absolute right-[5%] top-[10%] h-56 w-56 rounded-full bg-indigo-400/10 blur-3xl animate-drift" style="animation-delay: -2s"></div>
+        </div>
         <div class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/70 to-transparent"></div>
+
         <div class="relative p-4 sm:p-6 lg:p-8">
-          <div class="rounded-[30px] border border-white/10 bg-slate-950/55 p-4 ring-1 ring-white/5 sm:p-6 lg:p-7">
+          <div class="glass-card rounded-[30px] border border-white/10 bg-slate-950/55 p-4 ring-1 ring-white/5 shadow-neon sm:p-6 lg:p-7">
             <div class="mb-6 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
               <div class="flex flex-wrap gap-2.5">
-                <span class="group relative inline-flex items-center overflow-hidden rounded-full border border-emerald-300/20 bg-emerald-400/10 px-4 py-2 text-sm font-semibold text-emerald-200">
+                <span class="group relative inline-flex items-center overflow-hidden rounded-full border border-emerald-300/20 bg-emerald-400/10 px-4 py-2 text-sm font-semibold text-emerald-200 shadow-[0_0_30px_rgba(16,185,129,0.12)]">
                   <span class="absolute inset-y-0 left-0 w-16 bg-white/10 blur-xl animate-shine"></span>
                   <span class="relative">Режим активен</span>
                 </span>
-                <span class="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-slate-300">Старт: 21 марта, 00:00 МСК</span>
+
+                <span class="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-slate-300">
+                  Старт: 21 марта, 00:00 МСК
+                </span>
+                <span class="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-slate-300">
+                  Финиш: 7 апреля, 00:00 МСК
+                </span>
               </div>
-              <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-slate-300">
+
+              <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-slate-300 shadow-[0_0_30px_rgba(255,255,255,0.03)]">
                 <span class="relative flex h-2.5 w-2.5">
                   <span class="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping"></span>
                   <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-300"></span>
                 </span>
-                Сейчас по МСК: <span id="nowTime" class="font-semibold text-white">--:--</span>
+                Сейчас по МСК:
+                <span id="nowTime" class="font-semibold text-white">--:--</span>
               </div>
             </div>
 
             <div class="mx-auto mb-8 max-w-4xl text-center">
+
               <h1 class="bg-gradient-to-b from-white via-cyan-100 to-slate-300 bg-clip-text text-4xl font-extrabold tracking-[-0.07em] text-transparent sm:text-5xl lg:text-6xl">
                 Мотивацию надо поднять!
               </h1>
+
               <p class="mx-auto mt-4 max-w-3xl text-sm leading-7 text-slate-300 sm:text-base sm:leading-8 lg:text-lg">
                 Цель — собрать <span class="font-semibold text-white">70 000 ₽</span> только из
                 <span class="font-semibold text-white">рабочего дохода</span>. Ниже видно,
@@ -119,72 +258,98 @@
               <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
                 <div>
                   <h2 class="text-lg font-semibold tracking-tight text-white sm:text-xl">До конца режима осталось</h2>
-                  <p class="mt-1 text-sm text-slate-400">Финиш: 7 апреля, 00:00 МСК</p>
                 </div>
-                <div class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-slate-400">Линейный отсчёт до финальной суммы</div>
+                <div class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-slate-400">
+                  Линейный отсчёт до финальной суммы
+                </div>
               </div>
 
               <div class="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
-                <div class="group relative overflow-hidden rounded-[28px] border border-cyan-200/10 bg-gradient-to-b from-cyan-300/12 via-sky-300/8 to-indigo-500/12 p-5 text-center shadow-card ring-1 ring-white/5 transition-transform duration-300 hover:-translate-y-1">
+                <div class="metric-pop glass-card group relative overflow-hidden rounded-[28px] border border-cyan-200/10 bg-gradient-to-b from-cyan-300/12 via-sky-300/8 to-indigo-500/12 p-5 text-center shadow-card ring-1 ring-white/5 transition-transform duration-300">
                   <div class="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white/70 to-transparent"></div>
                   <div class="absolute -right-10 -top-10 h-24 w-24 rounded-full bg-cyan-300/10 blur-2xl"></div>
+                  <div class="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.12),transparent_45%)]"></div>
                   <div id="days" class="relative text-4xl font-extrabold tracking-[-0.06em] text-white sm:text-5xl">00</div>
                   <div class="mt-2 text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">дней</div>
                 </div>
-                <div class="group relative overflow-hidden rounded-[28px] border border-cyan-200/10 bg-gradient-to-b from-cyan-300/12 via-sky-300/8 to-indigo-500/12 p-5 text-center shadow-card ring-1 ring-white/5 transition-transform duration-300 hover:-translate-y-1">
+
+                <div class="metric-pop glass-card group relative overflow-hidden rounded-[28px] border border-cyan-200/10 bg-gradient-to-b from-cyan-300/12 via-sky-300/8 to-indigo-500/12 p-5 text-center shadow-card ring-1 ring-white/5 transition-transform duration-300">
                   <div class="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white/70 to-transparent"></div>
                   <div class="absolute -right-10 -top-10 h-24 w-24 rounded-full bg-cyan-300/10 blur-2xl"></div>
+                  <div class="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.12),transparent_45%)]"></div>
                   <div id="hours" class="relative text-4xl font-extrabold tracking-[-0.06em] text-white sm:text-5xl">00</div>
                   <div class="mt-2 text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">часов</div>
                 </div>
-                <div class="group relative overflow-hidden rounded-[28px] border border-cyan-200/10 bg-gradient-to-b from-cyan-300/12 via-sky-300/8 to-indigo-500/12 p-5 text-center shadow-card ring-1 ring-white/5 transition-transform duration-300 hover:-translate-y-1">
+
+                <div class="metric-pop glass-card group relative overflow-hidden rounded-[28px] border border-cyan-200/10 bg-gradient-to-b from-cyan-300/12 via-sky-300/8 to-indigo-500/12 p-5 text-center shadow-card ring-1 ring-white/5 transition-transform duration-300">
                   <div class="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white/70 to-transparent"></div>
                   <div class="absolute -right-10 -top-10 h-24 w-24 rounded-full bg-cyan-300/10 blur-2xl"></div>
+                  <div class="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.12),transparent_45%)]"></div>
                   <div id="minutes" class="relative text-4xl font-extrabold tracking-[-0.06em] text-white sm:text-5xl">00</div>
                   <div class="mt-2 text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">минут</div>
                 </div>
-                <div class="group relative overflow-hidden rounded-[28px] border border-cyan-200/10 bg-gradient-to-b from-cyan-300/12 via-sky-300/8 to-indigo-500/12 p-5 text-center shadow-card ring-1 ring-white/5 transition-transform duration-300 hover:-translate-y-1">
+
+                <div class="metric-pop glass-card group relative overflow-hidden rounded-[28px] border border-cyan-200/10 bg-gradient-to-b from-cyan-300/12 via-sky-300/8 to-indigo-500/12 p-5 text-center shadow-card ring-1 ring-white/5 transition-transform duration-300">
                   <div class="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white/70 to-transparent"></div>
                   <div class="absolute -right-10 -top-10 h-24 w-24 rounded-full bg-cyan-300/10 blur-2xl"></div>
+                  <div class="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.12),transparent_45%)]"></div>
                   <div id="seconds" class="relative text-4xl font-extrabold tracking-[-0.06em] text-white sm:text-5xl">00</div>
                   <div class="mt-2 text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">секунд</div>
                 </div>
               </div>
 
               <div class="grid gap-4 lg:grid-cols-12">
-                <div class="relative overflow-hidden rounded-[28px] border border-amber-300/15 bg-amber-300/5 p-5 ring-1 ring-white/5 lg:col-span-4">
+                <div class="glass-card relative overflow-hidden rounded-[28px] border border-amber-300/15 bg-amber-300/5 p-5 ring-1 ring-white/5 lg:col-span-4">
                   <div class="absolute right-0 top-0 h-24 w-24 rounded-full bg-amber-300/10 blur-2xl"></div>
                   <div class="text-sm font-medium text-slate-400">Должно было быть к этому часу</div>
-                  <div class="mt-3 bg-gradient-to-b from-amber-100 to-amber-300 bg-clip-text text-3xl font-extrabold tracking-[-0.06em] text-transparent sm:text-4xl"><span id="expectedValue">0</span> ₽</div>
+                  <div class="mt-3 bg-gradient-to-b from-amber-100 to-amber-300 bg-clip-text text-3xl font-extrabold tracking-[-0.06em] text-transparent sm:text-4xl">
+                    <span id="expectedValue">0</span> ₽
+                  </div>
                   <p class="mt-3 text-sm leading-6 text-slate-400">
                     70 000 ₽ делятся на всё время режима и умножаются на уже прошедшее время.
                   </p>
                 </div>
 
-                <div class="relative overflow-hidden rounded-[28px] border border-white/10 bg-white/5 p-5 ring-1 ring-white/5 lg:col-span-3">
+                <div class="glass-card relative overflow-hidden rounded-[28px] border border-white/10 bg-white/5 p-5 ring-1 ring-white/5 lg:col-span-3">
                   <div class="text-sm font-medium text-slate-400">Прошло от всего периода</div>
-                  <div class="mt-3 text-3xl font-extrabold tracking-[-0.06em] text-white sm:text-4xl"><span id="elapsedPercent">0</span>%</div>
-                  <div class="mt-4 h-2 overflow-hidden rounded-full bg-white/10">
-                    <div id="elapsedBar" class="h-full rounded-full bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 transition-all duration-700" style="width: 0%"></div>
+                  <div class="mt-3 text-3xl font-extrabold tracking-[-0.06em] text-white sm:text-4xl">
+                    <span id="elapsedPercent">0</span>%
                   </div>
+
+                  <div class="mt-4 h-2.5 overflow-hidden rounded-full bg-white/10 shadow-inner">
+                    <div
+                      id="elapsedBar"
+                      class="progress-sheen relative h-full rounded-full bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 transition-all duration-700"
+                      style="width: 0%"
+                    ></div>
+                  </div>
+
                   <p class="mt-3 text-sm leading-6 text-slate-400">
                     Доля от временного окна между 21 марта и 7 апреля.
                   </p>
                 </div>
 
-                <div class="rounded-[28px] border border-white/10 bg-white/5 p-5 ring-1 ring-white/5 lg:col-span-5">
+                <div class="glass-card rounded-[28px] border border-white/10 bg-white/5 p-5 ring-1 ring-white/5 lg:col-span-5">
                   <div class="flex items-center justify-between gap-3">
                     <div class="text-sm font-medium text-slate-400">Условия режима</div>
-                    <div class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-slate-300">Правила</div>
-                  </div>
-                  <div class="mt-4 space-y-3">
-                    <div class="rounded-2xl border border-emerald-300/15 bg-emerald-400/5 p-4 transition-transform duration-300 hover:-translate-y-0.5">
-                      <strong class="block text-sm font-semibold text-emerald-200">Если цель выполнена</strong>
-                      <span class="mt-1 block text-sm leading-6 text-slate-300">70 000 ₽ до дедлайна = ещё 2 недели проживания.</span>
+                    <div class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-slate-300">
+                      Правила
                     </div>
-                    <div class="rounded-2xl border border-rose-300/15 bg-rose-400/5 p-4 transition-transform duration-300 hover:-translate-y-0.5">
+                  </div>
+
+                  <div class="mt-4 space-y-3">
+                    <div class="rounded-2xl border border-emerald-300/15 bg-emerald-400/5 p-4 transition-transform duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_35px_rgba(16,185,129,0.10)]">
+                      <strong class="block text-sm font-semibold text-emerald-200">Если цель выполнена</strong>
+                      <span class="mt-1 block text-sm leading-6 text-slate-300">
+                        70 000 ₽ до дедлайна = ещё 2 недели проживания.
+                      </span>
+                    </div>
+
+                    <div class="rounded-2xl border border-rose-300/15 bg-rose-400/5 p-4 transition-transform duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_35px_rgba(244,63,94,0.10)]">
                       <strong class="block text-sm font-semibold text-rose-200">Если цель провалена</strong>
-                      <span class="mt-1 block text-sm leading-6 text-slate-300">Меньше 70 000 ₽ к сроку = выселение из квартиры.</span>
+                      <span class="mt-1 block text-sm leading-6 text-slate-300">
+                        Меньше 70 000 ₽ к сроку = выселение из квартиры.
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -197,9 +362,9 @@
       </section>
 
       <section class="mt-6 grid gap-6 lg:grid-cols-2">
-        <article class="group rounded-[32px] border border-white/10 bg-white/5 p-5 shadow-glow ring-1 ring-white/5 backdrop-blur-xl transition-transform duration-300 hover:-translate-y-1 sm:p-6">
+        <article class="glass-card group rounded-[32px] border border-white/10 bg-white/5 p-5 shadow-glow ring-1 ring-white/5 backdrop-blur-xl transition-transform duration-300 hover:-translate-y-1 sm:p-6">
           <div class="mb-5 flex items-center gap-3">
-            <div class="flex h-11 w-11 items-center justify-center rounded-2xl border border-emerald-300/15 bg-emerald-400/10 text-lg shadow-card">✨</div>
+            <div class="flex h-11 w-11 items-center justify-center rounded-2xl border border-emerald-300/15 bg-emerald-400/10 text-lg shadow-card animate-breathe">✨</div>
             <div>
               <h3 class="text-xl font-semibold tracking-tight text-white">Плюсы режима</h3>
               <p class="text-sm text-slate-400">Что усиливает дисциплину и ясность</p>
@@ -207,24 +372,30 @@
           </div>
 
           <div class="space-y-3">
-            <div class="rounded-[24px] border border-white/10 bg-slate-950/40 p-4 ring-1 ring-white/5 transition-all duration-300 hover:border-cyan-300/15 hover:bg-slate-900/50">
+            <div class="rounded-[24px] border border-white/10 bg-slate-950/40 p-4 ring-1 ring-white/5 transition-all duration-300 hover:border-cyan-300/15 hover:bg-slate-900/50 hover:shadow-[0_12px_40px_rgba(56,189,248,0.08)]">
               <strong class="block text-sm font-semibold text-white">Фокус только на реальном доходе</strong>
-              <span class="mt-2 block text-sm leading-6 text-slate-300">Считаются только деньги, заработанные на работе. Это убирает иллюзии и показывает настоящий результат.</span>
+              <span class="mt-2 block text-sm leading-6 text-slate-300">
+                Считаются только деньги, заработанные на работе. Это убирает иллюзии и показывает настоящий результат.
+              </span>
             </div>
-            <div class="rounded-[24px] border border-white/10 bg-slate-950/40 p-4 ring-1 ring-white/5 transition-all duration-300 hover:border-cyan-300/15 hover:bg-slate-900/50">
+            <div class="rounded-[24px] border border-white/10 bg-slate-950/40 p-4 ring-1 ring-white/5 transition-all duration-300 hover:border-cyan-300/15 hover:bg-slate-900/50 hover:shadow-[0_12px_40px_rgba(56,189,248,0.08)]">
               <strong class="block text-sm font-semibold text-white">Понятный темп до дедлайна</strong>
-              <span class="mt-2 block text-sm leading-6 text-slate-300">Сразу видно, какая сумма должна была накопиться к текущему часу при ровном движении к цели.</span>
+              <span class="mt-2 block text-sm leading-6 text-slate-300">
+                Сразу видно, какая сумма должна была накопиться к текущему часу при ровном движении к цели.
+              </span>
             </div>
-            <div class="rounded-[24px] border border-white/10 bg-slate-950/40 p-4 ring-1 ring-white/5 transition-all duration-300 hover:border-cyan-300/15 hover:bg-slate-900/50">
+            <div class="rounded-[24px] border border-white/10 bg-slate-950/40 p-4 ring-1 ring-white/5 transition-all duration-300 hover:border-cyan-300/15 hover:bg-slate-900/50 hover:shadow-[0_12px_40px_rgba(56,189,248,0.08)]">
               <strong class="block text-sm font-semibold text-white">Награда за дисциплину</strong>
-              <span class="mt-2 block text-sm leading-6 text-slate-300">Если сумма собрана вовремя, появляется бонус: можно остаться ещё на 2 недели.</span>
+              <span class="mt-2 block text-sm leading-6 text-slate-300">
+                Если сумма собрана вовремя, появляется бонус: можно остаться ещё на 2 недели.
+              </span>
             </div>
           </div>
         </article>
 
-        <article class="group rounded-[32px] border border-white/10 bg-white/5 p-5 shadow-glow ring-1 ring-white/5 backdrop-blur-xl transition-transform duration-300 hover:-translate-y-1 sm:p-6">
+        <article class="glass-card group rounded-[32px] border border-white/10 bg-white/5 p-5 shadow-glow ring-1 ring-white/5 backdrop-blur-xl transition-transform duration-300 hover:-translate-y-1 sm:p-6">
           <div class="mb-5 flex items-center gap-3">
-            <div class="flex h-11 w-11 items-center justify-center rounded-2xl border border-rose-300/15 bg-rose-400/10 text-lg shadow-card">⚠️</div>
+            <div class="flex h-11 w-11 items-center justify-center rounded-2xl border border-rose-300/15 bg-rose-400/10 text-lg shadow-card animate-breathe">⚠️</div>
             <div>
               <h3 class="text-xl font-semibold tracking-tight text-white">Минусы режима</h3>
               <p class="text-sm text-slate-400">Что создаёт давление и риск</p>
@@ -232,30 +403,38 @@
           </div>
 
           <div class="space-y-3">
-            <div class="rounded-[24px] border border-white/10 bg-slate-950/40 p-4 ring-1 ring-white/5 transition-all duration-300 hover:border-cyan-300/15 hover:bg-slate-900/50">
+            <div class="rounded-[24px] border border-white/10 bg-slate-950/40 p-4 ring-1 ring-white/5 transition-all duration-300 hover:border-cyan-300/15 hover:bg-slate-900/50 hover:shadow-[0_12px_40px_rgba(56,189,248,0.08)]">
               <strong class="block text-sm font-semibold text-white">Главный риск — выселение</strong>
-              <span class="mt-2 block text-sm leading-6 text-slate-300">Если к концу срока не будет накоплено 70 000 ₽, срабатывает жёсткий штраф по условиям режима.</span>
+              <span class="mt-2 block text-sm leading-6 text-slate-300">
+                Если к концу срока не будет накоплено 70 000 ₽, срабатывает жёсткий штраф по условиям режима.
+              </span>
             </div>
-            <div class="rounded-[24px] border border-white/10 bg-slate-950/40 p-4 ring-1 ring-white/5 transition-all duration-300 hover:border-cyan-300/15 hover:bg-slate-900/50">
+            <div class="rounded-[24px] border border-white/10 bg-slate-950/40 p-4 ring-1 ring-white/5 transition-all duration-300 hover:border-cyan-300/15 hover:bg-slate-900/50 hover:shadow-[0_12px_40px_rgba(56,189,248,0.08)]">
               <strong class="block text-sm font-semibold text-white">Нельзя закрыть цель обходным способом</strong>
-              <span class="mt-2 block text-sm leading-6 text-slate-300">Деньги из казино, ставок, крипты, любой интернет-деятельности и взятые в долг не засчитываются.</span>
+              <span class="mt-2 block text-sm leading-6 text-slate-300">
+                Деньги из казино, ставок, крипты, любой интернет-деятельности и взятые в долг не засчитываются.
+              </span>
             </div>
-            <div class="rounded-[24px] border border-white/10 bg-slate-950/40 p-4 ring-1 ring-white/5 transition-all duration-300 hover:border-cyan-300/15 hover:bg-slate-900/50">
+            <div class="rounded-[24px] border border-white/10 bg-slate-950/40 p-4 ring-1 ring-white/5 transition-all duration-300 hover:border-cyan-300/15 hover:bg-slate-900/50 hover:shadow-[0_12px_40px_rgba(56,189,248,0.08)]">
               <strong class="block text-sm font-semibold text-white">Давление по времени остаётся жёстким</strong>
-              <span class="mt-2 block text-sm leading-6 text-slate-300">Каждый час двигает плановую сумму выше, поэтому режим постоянно напоминает о дедлайне.</span>
+              <span class="mt-2 block text-sm leading-6 text-slate-300">
+                Каждый час двигает плановую сумму выше, поэтому режим постоянно напоминает о дедлайне.
+              </span>
             </div>
-            <div class="rounded-[24px] border border-white/10 bg-slate-950/40 p-4 ring-1 ring-white/5 transition-all duration-300 hover:border-cyan-300/15 hover:bg-slate-900/50">
+            <div class="rounded-[24px] border border-white/10 bg-slate-950/40 p-4 ring-1 ring-white/5 transition-all duration-300 hover:border-cyan-300/15 hover:bg-slate-900/50 hover:shadow-[0_12px_40px_rgba(56,189,248,0.08)]">
               <strong class="block text-sm font-semibold text-white">Никаких красивых оправданий</strong>
-              <span class="mt-2 block text-sm leading-6 text-slate-300">Есть только дедлайн, целевая сумма и честный темп, который должен был быть выдержан.</span>
+              <span class="mt-2 block text-sm leading-6 text-slate-300">
+                Есть только дедлайн, целевая сумма и честный темп, который должен был быть выдержан.
+              </span>
             </div>
           </div>
         </article>
       </section>
 
-      <section class="relative mt-6 overflow-hidden rounded-[30px] border border-white/10 bg-gradient-to-b from-white/5 to-white/[0.03] p-5 text-sm leading-7 text-slate-300 shadow-glow ring-1 ring-white/5 backdrop-blur-xl sm:p-6">
+      <section class="glass-card relative mt-6 overflow-hidden rounded-[30px] border border-white/10 bg-gradient-to-b from-white/5 to-white/[0.03] p-5 text-sm leading-7 text-slate-300 shadow-glow ring-1 ring-white/5 backdrop-blur-xl sm:p-6">
         <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/70 to-transparent"></div>
-        <span class="font-semibold text-white">Условие режима:</span> итоговая сумма учитывается только с заработанных денег на работе.
-        Любые поступления из казино, ставок, крипты, интернет-деятельности и денег, взятых в долг,
+        <span class="font-semibold text-white">Условие режима:</span>
+        итоговая сумма учитывается только с заработанных денег на работе. Любые поступления из казино, ставок, крипты, интернет-деятельности и денег, взятых в долг,
         <span class="font-semibold text-white">не считаются</span>. Плановая сумма рассчитывается линейно от
         <span class="font-semibold text-white">21 марта 00:00 МСК</span> до
         <span class="font-semibold text-white">7 апреля 00:00 МСК</span>.
@@ -313,7 +492,8 @@
 
       function updateClock() {
         const msk = getMSKNowParts();
-        document.getElementById('nowTime').textContent = `${pad(msk.hours)}:${pad(msk.minutes)}:${pad(msk.seconds)}`;
+        document.getElementById('nowTime').textContent =
+          `${pad(msk.hours)}:${pad(msk.minutes)}:${pad(msk.seconds)}`;
       }
 
       function updateTimer() {
@@ -356,12 +536,46 @@
 
         document.getElementById('expectedValue').textContent = formatMoney(expectedAmount);
         document.getElementById('elapsedPercent').textContent = elapsedPercent.toFixed(1);
-        document.getElementById('elapsedBar').style.width = `${Math.max(0, Math.min(elapsedPercent, 100)).toFixed(1)}%`;
+        document.getElementById('elapsedBar').style.width =
+          `${Math.max(0, Math.min(elapsedPercent, 100)).toFixed(1)}%`;
+      }
+
+      function createStars() {
+        const container = document.getElementById('stars');
+        const starCount = Math.min(70, Math.floor(window.innerWidth / 18));
+
+        container.innerHTML = '';
+
+        for (let i = 0; i < starCount; i++) {
+          const star = document.createElement('span');
+          const size = Math.random() * 2.2 + 0.6;
+          star.className = 'absolute rounded-full bg-white/80 animate-starTwinkle';
+          star.style.width = `${size}px`;
+          star.style.height = `${size}px`;
+          star.style.left = `${Math.random() * 100}%`;
+          star.style.top = `${Math.random() * 100}%`;
+          star.style.opacity = (Math.random() * 0.45 + 0.12).toFixed(2);
+          star.style.animationDelay = `${Math.random() * 5}s`;
+          star.style.animationDuration = `${3 + Math.random() * 5}s`;
+          container.appendChild(star);
+        }
+      }
+
+      function setupMouseGlow() {
+        const root = document.documentElement;
+        window.addEventListener('pointermove', (e) => {
+          root.style.setProperty('--mx', `${e.clientX}px`);
+          root.style.setProperty('--my', `${e.clientY}px`);
+        });
       }
 
       updateClock();
       updateTimer();
       updatePlanStats();
+      createStars();
+      setupMouseGlow();
+
+      window.addEventListener('resize', createStars);
 
       setInterval(() => {
         updateClock();
