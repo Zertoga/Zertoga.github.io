@@ -671,9 +671,21 @@ body {
           min-height: 34px;
         }
       }
+      .top-safe-fill {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: env(safe-area-inset-top);
+  background: #050811;
+  z-index: 0;
+  pointer-events: none;
+}
     </style>
   </head>
   <body>
+      <div class="top-safe-fill"></div>
+
     <div class="grid"></div>
     <main class="app">
       <section class="panel hero">
