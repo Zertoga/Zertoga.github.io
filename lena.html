@@ -6,7 +6,6 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
 
     <script>
       tailwind.config = {
@@ -20,83 +19,39 @@
               panel: '#0b1220',
             },
             boxShadow: {
-              glow: '0 25px 80px rgba(0,0,0,0.45)',
-              card: '0 10px 30px rgba(15,23,42,0.25)',
-              neon: '0 0 0 1px rgba(255,255,255,0.04), 0 10px 40px rgba(56,189,248,0.10), 0 20px 80px rgba(99,102,241,0.16)',
+              card: '0 10px 30px rgba(15,23,42,0.20)',
             },
             backgroundImage: {
               'hero-mesh':
-                'radial-gradient(circle at 20% 20%, rgba(34,211,238,0.16), transparent 25%), radial-gradient(circle at 80% 0%, rgba(129,140,248,0.18), transparent 24%), radial-gradient(circle at 50% 100%, rgba(59,130,246,0.14), transparent 28%)',
-              'card-glow':
-                'linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.03) 30%, rgba(56,189,248,0.08) 70%, rgba(99,102,241,0.10))',
+                'radial-gradient(circle at 20% 20%, rgba(34,211,238,0.10), transparent 25%), radial-gradient(circle at 80% 0%, rgba(129,140,248,0.12), transparent 24%), radial-gradient(circle at 50% 100%, rgba(59,130,246,0.08), transparent 28%)',
             },
             keyframes: {
-              floatA: {
-                '0%, 100%': { transform: 'translateY(0px) translateX(0px)' },
-                '50%': { transform: 'translateY(16px) translateX(8px)' },
-              },
-              floatB: {
-                '0%, 100%': { transform: 'translateY(0px) translateX(0px)' },
-                '50%': { transform: 'translateY(-18px) translateX(-10px)' },
-              },
               pulseSoft: {
                 '0%, 100%': { opacity: '0.45', transform: 'scale(1)' },
-                '50%': { opacity: '0.95', transform: 'scale(1.08)' },
-              },
-              shine: {
-                '0%': { transform: 'translateX(-120%) skewX(-18deg)' },
-                '100%': { transform: 'translateX(220%) skewX(-18deg)' },
-              },
-              pulseRing: {
-                '0%, 100%': { transform: 'scale(1)', opacity: '0.6' },
-                '50%': { transform: 'scale(1.06)', opacity: '1' },
-              },
-              tilt: {
-                '0%, 100%': { transform: 'rotate(0deg) translateY(0px)' },
-                '50%': { transform: 'rotate(1deg) translateY(-4px)' },
+                '50%': { opacity: '0.75', transform: 'scale(1.03)' },
               },
               aurora: {
-                '0%': { transform: 'translate3d(-10%, 0, 0) scale(1)', opacity: '0.45' },
-                '25%': { transform: 'translate3d(6%, -4%, 0) scale(1.08)', opacity: '0.7' },
-                '50%': { transform: 'translate3d(10%, 3%, 0) scale(0.98)', opacity: '0.55' },
-                '75%': { transform: 'translate3d(-4%, 6%, 0) scale(1.05)', opacity: '0.78' },
-                '100%': { transform: 'translate3d(-10%, 0, 0) scale(1)', opacity: '0.45' },
+                '0%': { transform: 'translate3d(-10%, 0, 0) scale(1)', opacity: '0.28' },
+                '25%': { transform: 'translate3d(6%, -4%, 0) scale(1.04)', opacity: '0.4' },
+                '50%': { transform: 'translate3d(10%, 3%, 0) scale(0.98)', opacity: '0.34' },
+                '75%': { transform: 'translate3d(-4%, 6%, 0) scale(1.03)', opacity: '0.42' },
+                '100%': { transform: 'translate3d(-10%, 0, 0) scale(1)', opacity: '0.28' },
               },
               drift: {
                 '0%': { transform: 'translateY(0px) translateX(0px)' },
-                '50%': { transform: 'translateY(-12px) translateX(6px)' },
+                '50%': { transform: 'translateY(-8px) translateX(4px)' },
                 '100%': { transform: 'translateY(0px) translateX(0px)' },
               },
-              starTwinkle: {
-                '0%, 100%': { opacity: '0.15', transform: 'scale(1)' },
-                '50%': { opacity: '0.9', transform: 'scale(1.35)' },
-              },
               borderFlow: {
-                '0%' : { backgroundPosition: '0% 50%' },
+                '0%': { backgroundPosition: '0% 50%' },
                 '100%': { backgroundPosition: '200% 50%' },
-              },
-              breathe: {
-                '0%,100%': { transform: 'scale(1)', opacity: '0.75' },
-                '50%': { transform: 'scale(1.03)', opacity: '1' },
-              },
-              slideGlow: {
-                '0%': { transform: 'translateX(-35%)' },
-                '100%': { transform: 'translateX(135%)' },
               },
             },
             animation: {
-              floatA: 'floatA 10s ease-in-out infinite',
-              floatB: 'floatB 12s ease-in-out infinite',
               pulseSoft: 'pulseSoft 8s ease-in-out infinite',
-              shine: 'shine 4.5s linear infinite',
-              pulseRing: 'pulseRing 6s ease-in-out infinite',
-              tilt: 'tilt 9s ease-in-out infinite',
               aurora: 'aurora 16s ease-in-out infinite',
               drift: 'drift 8s ease-in-out infinite',
-              starTwinkle: 'starTwinkle 4s ease-in-out infinite',
               borderFlow: 'borderFlow 8s linear infinite',
-              breathe: 'breathe 5s ease-in-out infinite',
-              slideGlow: 'slideGlow 3.6s linear infinite',
             },
           },
         },
@@ -113,8 +68,7 @@
       }
 
       .noise {
-        background-image:
-          radial-gradient(rgba(255,255,255,0.06) 0.6px, transparent 0.6px);
+        background-image: radial-gradient(rgba(255,255,255,0.04) 0.6px, transparent 0.6px);
         background-size: 12px 12px;
         mask-image: radial-gradient(circle at center, black 30%, transparent 100%);
       }
@@ -132,11 +86,11 @@
         padding: 1px;
         background: linear-gradient(
           120deg,
-          rgba(255,255,255,0.14),
+          rgba(255,255,255,0.10),
           rgba(255,255,255,0.03),
-          rgba(56,189,248,0.18),
-          rgba(99,102,241,0.18),
-          rgba(255,255,255,0.04)
+          rgba(56,189,248,0.12),
+          rgba(99,102,241,0.12),
+          rgba(255,255,255,0.03)
         );
         background-size: 200% 200%;
         animation: borderFlow 8s linear infinite;
@@ -144,22 +98,8 @@
           linear-gradient(#000 0 0) content-box,
           linear-gradient(#000 0 0);
         -webkit-mask-composite: xor;
-                mask-composite: exclude;
+        mask-composite: exclude;
         pointer-events: none;
-      }
-
-      .hero-spotlight {
-        background:
-          radial-gradient(500px circle at var(--mx, 50%) var(--my, 50%), rgba(125, 211, 252, 0.11), transparent 45%);
-      }
-
-      .metric-pop {
-        transform-style: preserve-3d;
-        will-change: transform;
-      }
-
-      .metric-pop:hover {
-        transform: translateY(-6px) scale(1.01);
       }
 
       .progress-sheen::after {
@@ -167,9 +107,27 @@
         position: absolute;
         inset: 0;
         width: 35%;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent);
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.32), transparent);
         filter: blur(8px);
-        animation: slideGlow 3.6s linear infinite;
+        animation: borderFlow 3.6s linear infinite;
+      }
+
+      .event-badge-buff {
+        background: rgba(16,185,129,0.12);
+        color: rgb(167 243 208);
+        border: 1px solid rgba(110,231,183,0.18);
+      }
+
+      .event-badge-debuff {
+        background: rgba(244,63,94,0.12);
+        color: rgb(254 205 211);
+        border: 1px solid rgba(251,113,133,0.18);
+      }
+
+      .event-badge-done {
+        background: rgba(255,255,255,0.08);
+        color: rgb(226 232 240);
+        border: 1px solid rgba(255,255,255,0.08);
       }
     </style>
 
@@ -185,39 +143,34 @@
     <div class="fixed inset-0 -z-30 bg-[linear-gradient(180deg,#08101d_0%,#060913_45%,#04070d_100%)]"></div>
 
     <div class="pointer-events-none fixed inset-0 -z-20 overflow-hidden">
-      <div class="absolute -left-[10%] top-[-8%] h-[40rem] w-[40rem] rounded-full bg-cyan-400/15 blur-3xl animate-aurora"></div>
-      <div class="absolute right-[-12%] top-[0%] h-[36rem] w-[36rem] rounded-full bg-indigo-500/20 blur-3xl animate-aurora" style="animation-delay: -5s"></div>
-      <div class="absolute left-[20%] bottom-[-18%] h-[34rem] w-[34rem] rounded-full bg-blue-500/15 blur-3xl animate-aurora" style="animation-delay: -10s"></div>
-      <div class="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(56,189,248,0.15),transparent_20%),radial-gradient(circle_at_85%_10%,rgba(99,102,241,0.16),transparent_18%),radial-gradient(circle_at_50%_85%,rgba(59,130,246,0.12),transparent_26%)]"></div>
+      <div class="absolute -left-[10%] top-[-8%] h-[40rem] w-[40rem] rounded-full bg-cyan-400/10 blur-3xl animate-aurora"></div>
+      <div class="absolute right-[-12%] top-[0%] h-[36rem] w-[36rem] rounded-full bg-indigo-500/12 blur-3xl animate-aurora" style="animation-delay: -5s"></div>
+      <div class="absolute left-[20%] bottom-[-18%] h-[34rem] w-[34rem] rounded-full bg-blue-500/10 blur-3xl animate-aurora" style="animation-delay: -10s"></div>
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(56,189,248,0.10),transparent_20%),radial-gradient(circle_at_85%_10%,rgba(99,102,241,0.10),transparent_18%),radial-gradient(circle_at_50%_85%,rgba(59,130,246,0.08),transparent_26%)]"></div>
     </div>
 
-    <div class="pointer-events-none fixed inset-0 -z-10 opacity-30 [background-image:linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] [background-size:32px_32px] [mask-image:linear-gradient(to_bottom,rgba(255,255,255,1),transparent_92%)]"></div>
+    <div class="pointer-events-none fixed inset-0 -z-10 opacity-20 [background-image:linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] [background-size:32px_32px] [mask-image:linear-gradient(to_bottom,rgba(255,255,255,1),transparent_92%)]"></div>
+    <div class="noise pointer-events-none fixed inset-0 -z-10 opacity-[0.05]"></div>
 
-    <div class="noise pointer-events-none fixed inset-0 -z-10 opacity-[0.07]"></div>
-    <div id="mouseGlow" class="hero-spotlight pointer-events-none fixed inset-0 -z-10 transition-opacity duration-300 opacity-100"></div>
-
-    <div class="pointer-events-none fixed -left-16 top-20 -z-10 h-72 w-72 rounded-full bg-cyan-400/20 blur-3xl animate-floatA"></div>
-    <div class="pointer-events-none fixed -right-16 top-40 -z-10 h-80 w-80 rounded-full bg-indigo-500/20 blur-3xl animate-floatB"></div>
-    <div class="pointer-events-none fixed inset-x-0 bottom-[-120px] -z-10 mx-auto h-72 w-[70vw] rounded-full bg-blue-500/10 blur-3xl animate-pulseSoft"></div>
-
-    <div id="stars" class="pointer-events-none fixed inset-0 -z-10"></div>
+    <div class="pointer-events-none fixed -left-16 top-20 -z-10 h-72 w-72 rounded-full bg-cyan-400/12 blur-3xl animate-pulseSoft"></div>
+    <div class="pointer-events-none fixed -right-16 top-40 -z-10 h-80 w-80 rounded-full bg-indigo-500/12 blur-3xl animate-pulseSoft"></div>
+    <div class="pointer-events-none fixed inset-x-0 bottom-[-120px] -z-10 mx-auto h-72 w-[70vw] rounded-full bg-blue-500/8 blur-3xl animate-pulseSoft"></div>
 
     <main class="mx-auto max-w-7xl px-4 pb-10 pt-8 sm:px-6 lg:px-8">
-      <section class="glass-card relative overflow-hidden rounded-[36px] border border-white/10 bg-white/5 shadow-glow backdrop-blur-2xl">
+      <section class="glass-card relative overflow-hidden rounded-[36px] border border-white/10 bg-white/5 backdrop-blur-2xl">
         <div class="absolute inset-0 bg-hero-mesh"></div>
-        <div class="absolute inset-0 bg-[linear-gradient(135deg,rgba(125,211,252,0.10),transparent_35%,rgba(99,102,241,0.12)_75%,transparent_100%)]"></div>
-        <div class="pointer-events-none absolute inset-0 opacity-40 [mask-image:radial-gradient(circle_at_center,black,transparent_82%)]">
-          <div class="absolute left-[-5%] top-[20%] h-48 w-48 rounded-full bg-cyan-300/10 blur-3xl animate-drift"></div>
-          <div class="absolute right-[5%] top-[10%] h-56 w-56 rounded-full bg-indigo-400/10 blur-3xl animate-drift" style="animation-delay: -2s"></div>
+        <div class="absolute inset-0 bg-[linear-gradient(135deg,rgba(125,211,252,0.08),transparent_35%,rgba(99,102,241,0.10)_75%,transparent_100%)]"></div>
+        <div class="pointer-events-none absolute inset-0 opacity-30 [mask-image:radial-gradient(circle_at_center,black,transparent_82%)]">
+          <div class="absolute left-[-5%] top-[20%] h-48 w-48 rounded-full bg-cyan-300/8 blur-3xl animate-drift"></div>
+          <div class="absolute right-[5%] top-[10%] h-56 w-56 rounded-full bg-indigo-400/8 blur-3xl animate-drift" style="animation-delay: -2s"></div>
         </div>
-        <div class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/70 to-transparent"></div>
+        <div class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/50 to-transparent"></div>
 
         <div class="relative p-4 sm:p-6 lg:p-4">
-          <div class="glass-card rounded-[30px] border border-white/10 bg-slate-950/55 p-4 ring-1 ring-white/5 shadow-neon sm:p-6 lg:p-7">
+          <div class="glass-card rounded-[30px] border border-white/10 bg-slate-950/55 p-4 ring-1 ring-white/5 sm:p-6 lg:p-7">
             <div class="mb-6 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
               <div class="flex flex-wrap gap-2.5">
-                <span class="group relative inline-flex items-center overflow-hidden rounded-full border border-emerald-300/20 bg-emerald-400/10 px-4 py-2 text-sm font-semibold text-emerald-200 shadow-[0_0_30px_rgba(16,185,129,0.12)]">
-                  <span class="absolute inset-y-0 left-0 w-16 bg-white/10 blur-xl animate-shine"></span>
+                <span class="inline-flex items-center overflow-hidden rounded-full border border-emerald-300/20 bg-emerald-400/10 px-4 py-2 text-sm font-semibold text-emerald-200">
                   <span class="relative">Режим активен</span>
                 </span>
 
@@ -229,18 +182,14 @@
                 </span>
               </div>
 
-              <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-slate-300 shadow-[0_0_30px_rgba(255,255,255,0.03)]">
-                <span class="relative flex h-2.5 w-2.5">
-                  <span class="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping"></span>
-                  <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-300"></span>
-                </span>
+              <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-slate-300">
+                <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-300"></span>
                 Сейчас по МСК:
                 <span id="nowTime" class="font-semibold text-white">--:--</span>
               </div>
             </div>
 
             <div class="mx-auto mb-8 max-w-4xl text-center">
-
               <h1 class="bg-gradient-to-b from-white via-cyan-100 to-slate-300 bg-clip-text text-4xl font-extrabold tracking-[-0.07em] text-transparent sm:text-5xl lg:text-6xl">
                 Мотивацию надо поднять!
               </h1>
@@ -265,34 +214,26 @@
               </div>
 
               <div class="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
-                <div class="metric-pop glass-card group relative overflow-hidden rounded-[28px] border border-cyan-200/10 bg-gradient-to-b from-cyan-300/12 via-sky-300/8 to-indigo-500/12 p-5 text-center shadow-card ring-1 ring-white/5 transition-transform duration-300">
-                  <div class="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white/70 to-transparent"></div>
-                  <div class="absolute -right-10 -top-10 h-24 w-24 rounded-full bg-cyan-300/10 blur-2xl"></div>
-                  <div class="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.12),transparent_45%)]"></div>
+                <div class="glass-card rounded-[28px] border border-cyan-200/10 bg-gradient-to-b from-cyan-300/12 via-sky-300/8 to-indigo-500/12 p-5 text-center shadow-card ring-1 ring-white/5">
+                  <div class="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent"></div>
                   <div id="days" class="relative text-4xl font-extrabold tracking-[-0.06em] text-white sm:text-5xl">00</div>
                   <div class="mt-2 text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">дней</div>
                 </div>
 
-                <div class="metric-pop glass-card group relative overflow-hidden rounded-[28px] border border-cyan-200/10 bg-gradient-to-b from-cyan-300/12 via-sky-300/8 to-indigo-500/12 p-5 text-center shadow-card ring-1 ring-white/5 transition-transform duration-300">
-                  <div class="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white/70 to-transparent"></div>
-                  <div class="absolute -right-10 -top-10 h-24 w-24 rounded-full bg-cyan-300/10 blur-2xl"></div>
-                  <div class="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.12),transparent_45%)]"></div>
+                <div class="glass-card rounded-[28px] border border-cyan-200/10 bg-gradient-to-b from-cyan-300/12 via-sky-300/8 to-indigo-500/12 p-5 text-center shadow-card ring-1 ring-white/5">
+                  <div class="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent"></div>
                   <div id="hours" class="relative text-4xl font-extrabold tracking-[-0.06em] text-white sm:text-5xl">00</div>
                   <div class="mt-2 text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">часов</div>
                 </div>
 
-                <div class="metric-pop glass-card group relative overflow-hidden rounded-[28px] border border-cyan-200/10 bg-gradient-to-b from-cyan-300/12 via-sky-300/8 to-indigo-500/12 p-5 text-center shadow-card ring-1 ring-white/5 transition-transform duration-300">
-                  <div class="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white/70 to-transparent"></div>
-                  <div class="absolute -right-10 -top-10 h-24 w-24 rounded-full bg-cyan-300/10 blur-2xl"></div>
-                  <div class="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.12),transparent_45%)]"></div>
+                <div class="glass-card rounded-[28px] border border-cyan-200/10 bg-gradient-to-b from-cyan-300/12 via-sky-300/8 to-indigo-500/12 p-5 text-center shadow-card ring-1 ring-white/5">
+                  <div class="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent"></div>
                   <div id="minutes" class="relative text-4xl font-extrabold tracking-[-0.06em] text-white sm:text-5xl">00</div>
                   <div class="mt-2 text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">минут</div>
                 </div>
 
-                <div class="metric-pop glass-card group relative overflow-hidden rounded-[28px] border border-cyan-200/10 bg-gradient-to-b from-cyan-300/12 via-sky-300/8 to-indigo-500/12 p-5 text-center shadow-card ring-1 ring-white/5 transition-transform duration-300">
-                  <div class="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white/70 to-transparent"></div>
-                  <div class="absolute -right-10 -top-10 h-24 w-24 rounded-full bg-cyan-300/10 blur-2xl"></div>
-                  <div class="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.12),transparent_45%)]"></div>
+                <div class="glass-card rounded-[28px] border border-cyan-200/10 bg-gradient-to-b from-cyan-300/12 via-sky-300/8 to-indigo-500/12 p-5 text-center shadow-card ring-1 ring-white/5">
+                  <div class="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent"></div>
                   <div id="seconds" class="relative text-4xl font-extrabold tracking-[-0.06em] text-white sm:text-5xl">00</div>
                   <div class="mt-2 text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">секунд</div>
                 </div>
@@ -300,7 +241,7 @@
 
               <div class="grid gap-4 lg:grid-cols-12">
                 <div class="glass-card relative overflow-hidden rounded-[28px] border border-amber-300/15 bg-amber-300/5 p-5 ring-1 ring-white/5 lg:col-span-4">
-                  <div class="absolute right-0 top-0 h-24 w-24 rounded-full bg-amber-300/10 blur-2xl"></div>
+                  <div class="absolute right-0 top-0 h-24 w-24 rounded-full bg-amber-300/8 blur-2xl"></div>
                   <div class="text-sm font-medium text-slate-400">Должно было быть к этому часу</div>
                   <div class="mt-3 bg-gradient-to-b from-amber-100 to-amber-300 bg-clip-text text-3xl font-extrabold tracking-[-0.06em] text-transparent sm:text-4xl">
                     <span id="expectedValue">0</span> ₽
@@ -338,14 +279,14 @@
                   </div>
 
                   <div class="mt-4 space-y-3">
-                    <div class="rounded-2xl border border-emerald-300/15 bg-emerald-400/5 p-4 transition-transform duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_35px_rgba(16,185,129,0.10)]">
+                    <div class="rounded-2xl border border-emerald-300/15 bg-emerald-400/5 p-4">
                       <strong class="block text-sm font-semibold text-emerald-200">Если цель выполнена</strong>
                       <span class="mt-1 block text-sm leading-6 text-slate-300">
                         70 000 ₽ до дедлайна = ещё 2 недели проживания.
                       </span>
                     </div>
 
-                    <div class="rounded-2xl border border-rose-300/15 bg-rose-400/5 p-4 transition-transform duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_35px_rgba(244,63,94,0.10)]">
+                    <div class="rounded-2xl border border-rose-300/15 bg-rose-400/5 p-4">
                       <strong class="block text-sm font-semibold text-rose-200">Если цель провалена</strong>
                       <span class="mt-1 block text-sm leading-6 text-slate-300">
                         Меньше 70 000 ₽ к сроку = выселение из квартиры.
@@ -355,16 +296,128 @@
                 </div>
               </div>
 
+              <div class="grid gap-4 lg:grid-cols-12">
+                <div class="glass-card rounded-[28px] border border-emerald-300/15 bg-emerald-400/5 p-5 ring-1 ring-white/5 lg:col-span-4">
+                  <div class="text-sm font-medium text-slate-400">Реально заработано</div>
+
+                  <div class="mt-3 flex items-end gap-3">
+                    <input
+                      id="actualIncomeInput"
+                      type="number"
+                      min="0"
+                      step="100"
+                      placeholder="Введите сумму"
+                      class="w-full rounded-2xl border border-white/10 bg-slate-950/50 px-4 py-3 text-lg font-semibold text-white outline-none placeholder:text-slate-500 focus:border-cyan-300/30"
+                    />
+                    <button
+                      id="saveIncomeBtn"
+                      class="rounded-2xl border border-cyan-300/15 bg-cyan-400/10 px-4 py-3 text-sm font-semibold text-cyan-200 transition hover:bg-cyan-400/15"
+                    >
+                      Сохранить
+                    </button>
+                  </div>
+
+                  <div class="mt-4 text-3xl font-extrabold tracking-[-0.06em] text-white sm:text-4xl">
+                    <span id="actualIncomeValue">0</span> ₽
+                  </div>
+
+                  <p class="mt-3 text-sm leading-6 text-slate-400">
+                    Сумма сохраняется локально в браузере.
+                  </p>
+                </div>
+
+                <div class="glass-card rounded-[28px] border border-white/10 bg-white/5 p-5 ring-1 ring-white/5 lg:col-span-4">
+                  <div class="text-sm font-medium text-slate-400">Отклонение от плана</div>
+
+                  <div id="deltaWrap" class="mt-3 text-3xl font-extrabold tracking-[-0.06em] text-white sm:text-4xl">
+                    <span id="deltaValue">0</span> ₽
+                  </div>
+
+                  <div id="deltaStatus" class="mt-3 inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm font-medium text-slate-300">
+                    По плану
+                  </div>
+
+                  <p class="mt-3 text-sm leading-6 text-slate-400">
+                    Показывает, насколько ты опережаешь или отстаёшь от линейного плана.
+                  </p>
+                </div>
+
+                <div class="glass-card rounded-[28px] border border-amber-300/15 bg-amber-300/5 p-5 ring-1 ring-white/5 lg:col-span-4">
+                  <div class="text-sm font-medium text-slate-400">Что нужно добрать</div>
+
+                  <div class="mt-3 text-3xl font-extrabold tracking-[-0.06em] text-white sm:text-4xl">
+                    <span id="remainingValue">0</span> ₽
+                  </div>
+
+                  <div class="mt-4 space-y-2">
+                    <div class="flex items-center justify-between text-sm">
+                      <span class="text-slate-400">Нужно в день</span>
+                      <span id="requiredPerDay" class="font-semibold text-white">0 ₽</span>
+                    </div>
+                    <div class="flex items-center justify-between text-sm">
+                      <span class="text-slate-400">Нужно в час</span>
+                      <span id="requiredPerHour" class="font-semibold text-white">0 ₽</span>
+                    </div>
+                  </div>
+
+                  <p class="mt-3 text-sm leading-6 text-slate-400">
+                    Темп пересчитывается автоматически от текущего момента до дедлайна.
+                  </p>
+                </div>
+              </div>
+
               <div id="expiredBox" class="hidden rounded-2xl border border-rose-300/20 bg-rose-400/10 px-4 py-3 text-sm leading-6 text-rose-100"></div>
             </div>
           </div>
         </div>
       </section>
 
+      <section class="glass-card relative mt-6 overflow-hidden rounded-[30px] border border-white/10 bg-gradient-to-b from-white/5 to-white/[0.03] p-5 ring-1 ring-white/5 backdrop-blur-xl sm:p-6">
+        <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent"></div>
+
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <div class="inline-flex items-center rounded-full border border-cyan-300/15 bg-cyan-400/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-cyan-200">
+              Таймлайн режима
+            </div>
+            <h3 class="mt-4 text-2xl font-semibold tracking-tight text-white">Бафы и дебафы</h3>
+          </div>
+
+          <div class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-slate-400">
+            Без сервера
+          </div>
+        </div>
+
+        <div class="mt-5 grid gap-4 md:grid-cols-3">
+          <div class="rounded-[24px] border border-emerald-300/15 bg-emerald-400/5 p-4 ring-1 ring-white/5">
+            <div class="text-xs font-semibold uppercase tracking-[0.22em] text-emerald-200">Прошло бафов</div>
+            <div class="mt-2 text-3xl font-extrabold tracking-[-0.06em] text-white">
+              <span id="buffCount">0</span>
+            </div>
+          </div>
+
+          <div class="rounded-[24px] border border-rose-300/15 bg-rose-400/5 p-4 ring-1 ring-white/5">
+            <div class="text-xs font-semibold uppercase tracking-[0.22em] text-rose-200">Прошло дебафов</div>
+            <div class="mt-2 text-3xl font-extrabold tracking-[-0.06em] text-white">
+              <span id="debuffCount">0</span>
+            </div>
+          </div>
+
+          <div class="rounded-[24px] border border-white/10 bg-white/5 p-4 ring-1 ring-white/5">
+            <div class="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">Всего прошло</div>
+            <div class="mt-2 text-3xl font-extrabold tracking-[-0.06em] text-white">
+              <span id="doneCount">0</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="eventsList" class="mt-6 grid gap-4 lg:grid-cols-2"></div>
+      </section>
+
       <section class="mt-6 grid gap-6 lg:grid-cols-2">
-        <article class="glass-card group rounded-[32px] border border-white/10 bg-white/5 p-5 shadow-glow ring-1 ring-white/5 backdrop-blur-xl transition-transform duration-300 hover:-translate-y-1 sm:p-6">
+        <article class="glass-card rounded-[32px] border border-white/10 bg-white/5 p-5 ring-1 ring-white/5 backdrop-blur-xl sm:p-6">
           <div class="mb-5 flex items-center gap-3">
-            <div class="flex h-11 w-11 items-center justify-center rounded-2xl border border-emerald-300/15 bg-emerald-400/10 text-lg shadow-card animate-breathe">✨</div>
+            <div class="flex h-11 w-11 items-center justify-center rounded-2xl border border-emerald-300/15 bg-emerald-400/10 text-lg shadow-card">✨</div>
             <div>
               <h3 class="text-xl font-semibold tracking-tight text-white">Плюсы режима</h3>
               <p class="text-sm text-slate-400">Что усиливает дисциплину и ясность</p>
@@ -372,19 +425,19 @@
           </div>
 
           <div class="space-y-3">
-            <div class="rounded-[24px] border border-white/10 bg-slate-950/40 p-4 ring-1 ring-white/5 transition-all duration-300 hover:border-cyan-300/15 hover:bg-slate-900/50 hover:shadow-[0_12px_40px_rgba(56,189,248,0.08)]">
+            <div class="rounded-[24px] border border-white/10 bg-slate-950/40 p-4 ring-1 ring-white/5">
               <strong class="block text-sm font-semibold text-white">Фокус только на реальном доходе</strong>
               <span class="mt-2 block text-sm leading-6 text-slate-300">
                 Считаются только деньги, заработанные на работе. Это убирает иллюзии и показывает настоящий результат.
               </span>
             </div>
-            <div class="rounded-[24px] border border-white/10 bg-slate-950/40 p-4 ring-1 ring-white/5 transition-all duration-300 hover:border-cyan-300/15 hover:bg-slate-900/50 hover:shadow-[0_12px_40px_rgba(56,189,248,0.08)]">
+            <div class="rounded-[24px] border border-white/10 bg-slate-950/40 p-4 ring-1 ring-white/5">
               <strong class="block text-sm font-semibold text-white">Понятный темп до дедлайна</strong>
               <span class="mt-2 block text-sm leading-6 text-slate-300">
                 Сразу видно, какая сумма должна была накопиться к текущему часу при ровном движении к цели.
               </span>
             </div>
-            <div class="rounded-[24px] border border-white/10 bg-slate-950/40 p-4 ring-1 ring-white/5 transition-all duration-300 hover:border-cyan-300/15 hover:bg-slate-900/50 hover:shadow-[0_12px_40px_rgba(56,189,248,0.08)]">
+            <div class="rounded-[24px] border border-white/10 bg-slate-950/40 p-4 ring-1 ring-white/5">
               <strong class="block text-sm font-semibold text-white">Награда за дисциплину</strong>
               <span class="mt-2 block text-sm leading-6 text-slate-300">
                 Если сумма собрана вовремя, появляется бонус: можно остаться ещё на 2 недели.
@@ -393,9 +446,9 @@
           </div>
         </article>
 
-        <article class="glass-card group rounded-[32px] border border-white/10 bg-white/5 p-5 shadow-glow ring-1 ring-white/5 backdrop-blur-xl transition-transform duration-300 hover:-translate-y-1 sm:p-6">
+        <article class="glass-card rounded-[32px] border border-white/10 bg-white/5 p-5 ring-1 ring-white/5 backdrop-blur-xl sm:p-6">
           <div class="mb-5 flex items-center gap-3">
-            <div class="flex h-11 w-11 items-center justify-center rounded-2xl border border-rose-300/15 bg-rose-400/10 text-lg shadow-card animate-breathe">⚠️</div>
+            <div class="flex h-11 w-11 items-center justify-center rounded-2xl border border-rose-300/15 bg-rose-400/10 text-lg shadow-card">⚠️</div>
             <div>
               <h3 class="text-xl font-semibold tracking-tight text-white">Минусы режима</h3>
               <p class="text-sm text-slate-400">Что создаёт давление и риск</p>
@@ -403,25 +456,25 @@
           </div>
 
           <div class="space-y-3">
-            <div class="rounded-[24px] border border-white/10 bg-slate-950/40 p-4 ring-1 ring-white/5 transition-all duration-300 hover:border-cyan-300/15 hover:bg-slate-900/50 hover:shadow-[0_12px_40px_rgba(56,189,248,0.08)]">
+            <div class="rounded-[24px] border border-white/10 bg-slate-950/40 p-4 ring-1 ring-white/5">
               <strong class="block text-sm font-semibold text-white">Главный риск — выселение</strong>
               <span class="mt-2 block text-sm leading-6 text-slate-300">
                 Если к концу срока не будет накоплено 70 000 ₽, срабатывает жёсткий штраф по условиям режима.
               </span>
             </div>
-            <div class="rounded-[24px] border border-white/10 bg-slate-950/40 p-4 ring-1 ring-white/5 transition-all duration-300 hover:border-cyan-300/15 hover:bg-slate-900/50 hover:shadow-[0_12px_40px_rgba(56,189,248,0.08)]">
+            <div class="rounded-[24px] border border-white/10 bg-slate-950/40 p-4 ring-1 ring-white/5">
               <strong class="block text-sm font-semibold text-white">Нельзя закрыть цель обходным способом</strong>
               <span class="mt-2 block text-sm leading-6 text-slate-300">
                 Деньги из казино, ставок, крипты, любой интернет-деятельности и взятые в долг не засчитываются.
               </span>
             </div>
-            <div class="rounded-[24px] border border-white/10 bg-slate-950/40 p-4 ring-1 ring-white/5 transition-all duration-300 hover:border-cyan-300/15 hover:bg-slate-900/50 hover:shadow-[0_12px_40px_rgba(56,189,248,0.08)]">
+            <div class="rounded-[24px] border border-white/10 bg-slate-950/40 p-4 ring-1 ring-white/5">
               <strong class="block text-sm font-semibold text-white">Давление по времени остаётся жёстким</strong>
               <span class="mt-2 block text-sm leading-6 text-slate-300">
                 Каждый час двигает плановую сумму выше, поэтому режим постоянно напоминает о дедлайне.
               </span>
             </div>
-            <div class="rounded-[24px] border border-white/10 bg-slate-950/40 p-4 ring-1 ring-white/5 transition-all duration-300 hover:border-cyan-300/15 hover:bg-slate-900/50 hover:shadow-[0_12px_40px_rgba(56,189,248,0.08)]">
+            <div class="rounded-[24px] border border-white/10 bg-slate-950/40 p-4 ring-1 ring-white/5">
               <strong class="block text-sm font-semibold text-white">Никаких красивых оправданий</strong>
               <span class="mt-2 block text-sm leading-6 text-slate-300">
                 Есть только дедлайн, целевая сумма и честный темп, который должен был быть выдержан.
@@ -431,46 +484,113 @@
         </article>
       </section>
 
-      <section class="glass-card relative mt-6 overflow-hidden rounded-[30px] border border-white/10 bg-gradient-to-b from-white/5 to-white/[0.03] p-5 text-sm leading-7 text-slate-300 shadow-glow ring-1 ring-white/5 backdrop-blur-xl sm:p-6">
-        <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/70 to-transparent"></div>
+      <section class="glass-card relative mt-6 overflow-hidden rounded-[30px] border border-white/10 bg-gradient-to-b from-white/5 to-white/[0.03] p-5 text-sm leading-7 text-slate-300 ring-1 ring-white/5 backdrop-blur-xl sm:p-6">
+        <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent"></div>
         <span class="font-semibold text-white">Условие режима:</span>
         итоговая сумма учитывается только с заработанных денег на работе. Любые поступления из казино, ставок, крипты, интернет-деятельности и денег, взятых в долг,
         <span class="font-semibold text-white">не считаются</span>. Плановая сумма рассчитывается линейно от
         <span class="font-semibold text-white">21 марта 00:00 МСК</span> до
         <span class="font-semibold text-white">7 апреля 00:00 МСК</span>.
       </section>
-<section class="glass-card relative mt-6 overflow-hidden rounded-[30px] border border-white/10 bg-gradient-to-b from-white/5 to-white/[0.03] p-5 text-sm leading-7 text-slate-300 shadow-glow ring-1 ring-white/5 backdrop-blur-xl sm:p-6">
-  <div class="glass-card relative overflow-hidden rounded-[30px] border border-emerald-300/20 bg-gradient-to-br from-emerald-400/10 via-white/5 to-cyan-400/10 p-6 ring-1 ring-white/5 shadow-[0_20px_60px_rgba(16,185,129,0.10)]">
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.12),transparent_30%),radial-gradient(circle_at_bottom_left,rgba(16,185,129,0.14),transparent_35%)]"></div>
-    <div class="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-emerald-300/15 blur-3xl"></div>
-    <div class="absolute left-8 top-0 h-px w-36 bg-gradient-to-r from-transparent via-white/80 to-transparent"></div>
-
-    <div class="relative">
-      <div class="inline-flex items-center rounded-full border border-emerald-300/20 bg-emerald-400/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-emerald-200">
-        Ориентир
-      </div>
-
-      <div class="mt-4 text-sm font-medium text-slate-400">
-        Где сейчас друган по темпу
-      </div>
-
-      <div class="mt-3 bg-gradient-to-b from-emerald-100 via-white to-emerald-300 bg-clip-text text-4xl font-black tracking-[-0.07em] text-transparent sm:text-5xl">
-        <span id="expectedValueFriend">0</span> ₽
-      </div>
-
-      <p class="mt-4 max-w-2xl text-sm leading-6 text-slate-300">
-        Показано, сколько должно было набраться к текущему часу при таком же линейном расчёте.
-      </p>
-    </div>
-  </div>
-</section>
-
     </main>
 
     <script>
-      const FRIEND_TARGET_AMOUNT = 400000;
       const TARGET_AMOUNT = 70000;
       const MSK_OFFSET_HOURS = 3;
+      const STORAGE_KEY = 'mode_actual_income';
+
+      const MODE_EVENTS = [
+        {
+          type: 'buff',
+          title: 'Закажу 6 энергетиков или 2 пачки снюсика',
+          description: 'Выбор энергосов или снюса за тобой',
+          month: 2,
+          day: 27,
+          hour: 10,
+          minute: 0,
+        },
+        {
+          type: 'debuff',
+          title: 'Помыть туалет',
+          description: 'Помой унитаз гаденыш',
+          month: 2,
+          day: 28,
+          hour: 18,
+          minute: 0,
+        },
+        {
+          type: 'buff',
+          title: 'Закажу вкусную еду',
+          description: 'Еда на твой выбор, цена до 3000 рублей.',
+          month: 2,
+          day: 29,
+          hour: 20,
+          minute: 0,
+        },
+        {
+          type: 'debuff',
+          title: 'Помыть посуду и кухню',
+          description: 'Чисто и правильно!',
+          month: 3,
+          day: 1,
+          hour: 12,
+          minute: 0,
+        },
+        {
+          type: 'buff',
+          title: 'Куплю Энерготики 6 штук или 1 банку снюса.',
+          description: 'Маленький бонус.',
+          month: 3,
+          day: 2,
+          hour: 11,
+          minute: 0,
+        },
+        {
+          type: 'debuff',
+          title: 'Вынос мусора + уборка',
+          description: 'Собрать мусор по квартире в мешочки и вынести без нашей помощи',
+          month: 3,
+          day: 3,
+          hour: 19,
+          minute: 0,
+        },
+        {
+          type: 'buff',
+          title: 'Закажу чего-то похавать на 800 рублей',
+          description: 'Пред финальный бонус',
+          month: 3,
+          day: 4,
+          hour: 9,
+          minute: 0,
+        },
+        {
+          type: 'debuff',
+          title: 'Генерально убраться',
+          description: 'А это тебе на сладкое',
+          month: 3,
+          day: 5,
+          hour: 16,
+          minute: 0,
+        },
+        {
+          type: 'buff',
+          title: 'Закажу чего-то похавать на 1600 рублей',
+          description: 'Финальный бонус',
+          month: 3,
+          day: 6,
+          hour: 9,
+          minute: 0,
+        },
+        {
+          type: 'debuff',
+          title: 'Помыть лоток и унитаз',
+          description: 'А это тебе на солененькое',
+          month: 3,
+          day: 7,
+          hour: 16,
+          minute: 0,
+        },
+      ];
 
       function formatMoney(value) {
         return new Intl.NumberFormat('ru-RU').format(Math.round(value));
@@ -503,12 +623,17 @@
         return {
           start: new Date(startUtc),
           deadline: new Date(deadlineUtc),
+          year,
         };
       }
 
-      function getMSKNowParts() {
+      function getMSKNowDate() {
         const nowUtc = new Date();
-        const nowMsk = new Date(nowUtc.getTime() + MSK_OFFSET_HOURS * 60 * 60 * 1000);
+        return new Date(nowUtc.getTime() + MSK_OFFSET_HOURS * 60 * 60 * 1000);
+      }
+
+      function getMSKNowParts() {
+        const nowMsk = getMSKNowDate();
 
         return {
           hours: nowMsk.getUTCHours(),
@@ -560,27 +685,203 @@
         const elapsedMs = Math.max(0, Math.min(now.getTime() - start.getTime(), totalMs));
         const expectedAmount = (TARGET_AMOUNT / totalMs) * elapsedMs;
         const elapsedPercent = (elapsedMs / totalMs) * 100;
-        const expectedAmountFriend = (FRIEND_TARGET_AMOUNT / totalMs) * elapsedMs;
+
         document.getElementById('expectedValue').textContent = formatMoney(expectedAmount);
         document.getElementById('elapsedPercent').textContent = elapsedPercent.toFixed(1);
         document.getElementById('elapsedBar').style.width =
           `${Math.max(0, Math.min(elapsedPercent, 100)).toFixed(1)}%`;
-
-          const friendValue = document.getElementById('expectedValueFriend');
-if (friendValue) {
-  friendValue.textContent = formatMoney(expectedAmountFriend);
-}
       }
 
-    
+      function formatEventDateLabel(event) {
+        const months = [
+          'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
+          'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'
+        ];
+        return `${event.day} ${months[event.month]}, ${pad(event.hour)}:${pad(event.minute)} МСК`;
+      }
+
+      function getEventUtcDate(event, year) {
+        return new Date(
+          Date.UTC(year, event.month, event.day, event.hour - MSK_OFFSET_HOURS, event.minute, 0)
+        );
+      }
+
+      function getStoredIncome() {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        const value = Number(raw);
+        return Number.isFinite(value) && value >= 0 ? value : 0;
+      }
+
+      function setStoredIncome(value) {
+        localStorage.setItem(STORAGE_KEY, String(Math.max(0, Math.round(value))));
+      }
+
+      function syncIncomeInput() {
+        const value = getStoredIncome();
+        const input = document.getElementById('actualIncomeInput');
+        const actualIncomeValue = document.getElementById('actualIncomeValue');
+
+        if (input) input.value = value || '';
+        if (actualIncomeValue) actualIncomeValue.textContent = formatMoney(value);
+      }
+
+      function saveIncomeFromInput() {
+        const input = document.getElementById('actualIncomeInput');
+        if (!input) return;
+
+        const value = Number(input.value);
+        const safeValue = Number.isFinite(value) && value >= 0 ? value : 0;
+
+        setStoredIncome(safeValue);
+        syncIncomeInput();
+        updateIncomeStats();
+      }
+
+      function updateIncomeStats() {
+        const { start, deadline } = getPeriodBoundsUTC();
+        const now = new Date();
+
+        const totalMs = deadline.getTime() - start.getTime();
+        const elapsedMs = Math.max(0, Math.min(now.getTime() - start.getTime(), totalMs));
+        const remainingMs = Math.max(0, deadline.getTime() - now.getTime());
+
+        const expectedAmount = (TARGET_AMOUNT / totalMs) * elapsedMs;
+        const actualAmount = getStoredIncome();
+
+        const delta = actualAmount - expectedAmount;
+        const remainingAmount = Math.max(0, TARGET_AMOUNT - actualAmount);
+
+        const requiredPerDay =
+          remainingMs > 0 ? remainingAmount / (remainingMs / (1000 * 60 * 60 * 24)) : 0;
+
+        const requiredPerHour =
+          remainingMs > 0 ? remainingAmount / (remainingMs / (1000 * 60 * 60)) : 0;
+
+        document.getElementById('actualIncomeValue').textContent = formatMoney(actualAmount);
+        document.getElementById('remainingValue').textContent = formatMoney(remainingAmount);
+        document.getElementById('requiredPerDay').textContent = `${formatMoney(requiredPerDay)} ₽`;
+        document.getElementById('requiredPerHour').textContent = `${formatMoney(requiredPerHour)} ₽`;
+
+        const deltaValue = document.getElementById('deltaValue');
+        const deltaWrap = document.getElementById('deltaWrap');
+        const deltaStatus = document.getElementById('deltaStatus');
+
+        if (Math.abs(delta) < 1) {
+          deltaValue.textContent = '0';
+          deltaWrap.className = 'mt-3 text-3xl font-extrabold tracking-[-0.06em] text-white sm:text-4xl';
+          deltaStatus.textContent = 'По плану';
+          deltaStatus.className =
+            'mt-3 inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm font-medium text-slate-300';
+          return;
+        }
+
+        if (delta > 0) {
+          deltaValue.textContent = `+${formatMoney(delta)}`;
+          deltaWrap.className = 'mt-3 text-3xl font-extrabold tracking-[-0.06em] text-emerald-300 sm:text-4xl';
+          deltaStatus.textContent = 'Опережаешь план';
+          deltaStatus.className =
+            'mt-3 inline-flex items-center rounded-full border border-emerald-300/20 bg-emerald-400/10 px-3 py-1 text-sm font-medium text-emerald-200';
+        } else {
+          deltaValue.textContent = `-${formatMoney(Math.abs(delta))}`;
+          deltaWrap.className = 'mt-3 text-3xl font-extrabold tracking-[-0.06em] text-rose-300 sm:text-4xl';
+          deltaStatus.textContent = 'Отстаёшь от плана';
+          deltaStatus.className =
+            'mt-3 inline-flex items-center rounded-full border border-rose-300/20 bg-rose-400/10 px-3 py-1 text-sm font-medium text-rose-200';
+        }
+      }
+
+      function initIncomeControls() {
+        syncIncomeInput();
+        updateIncomeStats();
+
+        const saveBtn = document.getElementById('saveIncomeBtn');
+        const input = document.getElementById('actualIncomeInput');
+
+        if (saveBtn) {
+          saveBtn.addEventListener('click', saveIncomeFromInput);
+        }
+
+        if (input) {
+          input.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+              saveIncomeFromInput();
+            }
+          });
+        }
+      }
+
+      function renderEvents() {
+        const { year } = getPeriodBoundsUTC();
+        const nowUtc = new Date();
+        const eventsList = document.getElementById('eventsList');
+
+        let buffCount = 0;
+        let debuffCount = 0;
+        let doneCount = 0;
+
+        const html = MODE_EVENTS.map((event) => {
+          const eventUtc = getEventUtcDate(event, year);
+          const isDone = nowUtc.getTime() >= eventUtc.getTime();
+
+          if (isDone) {
+            doneCount += 1;
+            if (event.type === 'buff') buffCount += 1;
+            if (event.type === 'debuff') debuffCount += 1;
+          }
+
+          const typeLabel = event.type === 'buff' ? 'Баф' : 'Дебаф';
+          const typeBadgeClass = event.type === 'buff' ? 'event-badge-buff' : 'event-badge-debuff';
+          const statusText = isDone ? 'Сработал' : 'Ожидается';
+          const statusClass = isDone ? 'event-badge-done' : typeBadgeClass;
+          const cardAccent = event.type === 'buff'
+            ? 'border-emerald-300/15 bg-emerald-400/5'
+            : 'border-rose-300/15 bg-rose-400/5';
+
+          return `
+            <article class="rounded-[26px] border ${cardAccent} p-5 ring-1 ring-white/5">
+              <div class="flex flex-wrap items-start justify-between gap-3">
+                <div>
+                  <div class="flex flex-wrap items-center gap-2">
+                    <span class="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] ${typeBadgeClass}">
+                      ${typeLabel}
+                    </span>
+                    <span class="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium ${statusClass}">
+                      ${statusText}
+                    </span>
+                    <div class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-slate-300">
+                      ${formatEventDateLabel(event)}
+                    </div>
+                  </div>
+                  <h4 class="mt-3 text-lg font-semibold tracking-tight text-white">${event.title}</h4>
+                </div>
+              </div>
+
+              <p class="mt-4 text-sm leading-6 text-slate-300">
+                ${event.description}
+              </p>
+            </article>
+          `;
+        }).join('');
+
+        eventsList.innerHTML = html;
+
+        document.getElementById('buffCount').textContent = buffCount;
+        document.getElementById('debuffCount').textContent = debuffCount;
+        document.getElementById('doneCount').textContent = doneCount;
+      }
+
       updateClock();
       updateTimer();
       updatePlanStats();
+      renderEvents();
+      initIncomeControls();
 
       setInterval(() => {
         updateClock();
         updateTimer();
         updatePlanStats();
+        updateIncomeStats();
+        renderEvents();
       }, 1000);
     </script>
   </body>
