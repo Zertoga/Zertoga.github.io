@@ -59,6 +59,12 @@
     </script>
 
     <style>
+      :root {
+        --decay-progress: 0;
+        --glitch-intensity: 0;
+        --timer-visibility: 0;
+      }
+
       html {
         scroll-behavior: smooth;
       }
@@ -129,6 +135,308 @@
         color: rgb(226 232 240);
         border: 1px solid rgba(255,255,255,0.08);
       }
+
+      #siteContent {
+        opacity: calc(1 - var(--decay-progress));
+        filter:
+          saturate(calc(1 - (var(--decay-progress) * 0.75)))
+          contrast(calc(1 + (var(--glitch-intensity) * 0.12)))
+          blur(calc(var(--glitch-intensity) * 0.9px));
+        transform: scale(calc(1 - (var(--glitch-intensity) * 0.008)));
+        transition: opacity 0.8s ease, filter 0.8s ease, transform 0.8s ease;
+      }
+
+      .doom-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 50;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: none;
+      }
+
+      .doom-vignette,
+      .doom-noise,
+      .doom-scanlines,
+      .doom-flash,
+      .doom-artifacts {
+        position: absolute;
+        inset: 0;
+      }
+
+      .doom-vignette { z-index: 1; }
+      .doom-noise { z-index: 2; }
+      .doom-scanlines { z-index: 3; }
+      .doom-flash { z-index: 4; }
+      .doom-artifacts,
+      .doom-pixels { z-index: 5; }
+
+      .doom-vignette {
+        background:
+          radial-gradient(circle at center, transparent 0%, rgba(5, 8, 17, 0.18) 40%, rgba(5, 8, 17, 0.7) 100%),
+          linear-gradient(180deg, rgba(255, 60, 60, 0.04), rgba(0, 0, 0, 0.45));
+        opacity: var(--decay-progress);
+        transition: opacity 0.6s ease;
+      }
+
+      .doom-noise {
+        background-image:
+          repeating-linear-gradient(
+            0deg,
+            rgba(255,255,255,0.04) 0px,
+            rgba(255,255,255,0.04) 1px,
+            transparent 1px,
+            transparent 3px
+          ),
+          repeating-linear-gradient(
+            90deg,
+            rgba(255,0,85,0.05) 0px,
+            rgba(255,0,85,0.05) 1px,
+            transparent 1px,
+            transparent 4px
+          );
+        mix-blend-mode: screen;
+        opacity: calc(0.01 + (var(--glitch-intensity) * 0.18));
+        animation: noiseShift 0.45s steps(2) infinite;
+      }
+
+      .doom-scanlines {
+        background: repeating-linear-gradient(
+          180deg,
+          rgba(255,255,255,0.015) 0px,
+          rgba(255,255,255,0.015) 2px,
+          transparent 2px,
+          transparent 5px
+        );
+        opacity: calc(0.08 + (var(--glitch-intensity) * 0.2));
+        mix-blend-mode: overlay;
+      }
+
+      .doom-flash {
+        background:
+          linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 48%, rgba(0,255,255,0.18) 50%, rgba(255,0,98,0.2) 52%, transparent 100%);
+        opacity: calc(var(--glitch-intensity) * 0.28);
+        transform: translateX(calc(var(--artifact-shift-x, 0px))) translateY(calc(var(--artifact-shift-y, 0px)));
+        animation: flashJitter 0.35s steps(2) infinite;
+      }
+
+      .doom-artifacts,
+      .doom-pixels {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        opacity: calc(var(--glitch-intensity) * 0.75);
+      }
+
+      .doom-artifact {
+        position: absolute;
+        left: var(--x, 0%);
+        top: var(--y, 0%);
+        width: var(--w, 30%);
+        height: var(--h, 12px);
+        opacity: var(--o, 0.5);
+        background:
+          linear-gradient(90deg, rgba(255,255,255,0.22), rgba(180,255,255,0.4) 35%, rgba(255,110,160,0.45) 70%, rgba(255,255,255,0.12)),
+          repeating-linear-gradient(90deg, rgba(255,255,255,0.12) 0 3px, transparent 3px 8px);
+        mix-blend-mode: screen;
+        box-shadow:
+          0 0 22px rgba(255,255,255,0.08),
+          0 0 36px rgba(255,0,98,0.18);
+        transform:
+          translateX(calc(var(--dx, 0px) * var(--glitch-intensity)))
+          skewX(var(--skew, 0deg));
+      }
+
+      .doom-artifact::before,
+      .doom-artifact::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+      }
+
+      .doom-artifact::before {
+        background: rgba(0,255,255,0.22);
+        transform: translateX(-8px);
+        clip-path: inset(0 0 0 35%);
+      }
+
+      .doom-artifact::after {
+        background: rgba(255,0,98,0.24);
+        transform: translateX(10px);
+        clip-path: inset(0 40% 0 0);
+      }
+
+      .doom-pixels span {
+        position: absolute;
+        left: calc(var(--x) * 1%);
+        top: calc(var(--y) * 1%);
+        width: calc(18px + (var(--size) * 1px));
+        height: calc(4px + (var(--size) * 0.35px));
+        background: linear-gradient(90deg, rgba(255,255,255,0.22), rgba(255,0,98,0.55), rgba(0,255,255,0.35));
+        box-shadow: 0 0 18px rgba(255, 0, 98, 0.22);
+        transform: translateX(calc(var(--glitch-intensity) * var(--shift) * 1px));
+        animation: pixelTear calc(0.45s + (var(--speed) * 0.08s)) steps(2) infinite;
+      }
+
+      .doom-panel {
+        position: relative;
+        z-index: 20;
+        width: min(92vw, 900px);
+        padding: 2.1rem 2.4rem 1.8rem;
+        text-align: center;
+        opacity: var(--timer-visibility);
+        transition: opacity 0.6s ease;
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 36px;
+        background:
+          linear-gradient(180deg, rgba(5,10,18,0.72), rgba(3,6,12,0.48)),
+          radial-gradient(circle at top, rgba(255,255,255,0.08), transparent 55%);
+        box-shadow:
+          inset 0 1px 0 rgba(255,255,255,0.12),
+          0 30px 90px rgba(0,0,0,0.42),
+          0 0 80px rgba(255,255,255,0.05);
+        filter:
+          drop-shadow(calc(var(--glitch-intensity) * -8px) 0 0 rgba(0,255,255,0.32))
+          drop-shadow(calc(var(--glitch-intensity) * 10px) 0 0 rgba(255,0,98,0.28));
+      }
+
+      .doom-panel::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        padding: 1px;
+        background: linear-gradient(120deg, rgba(255,255,255,0.18), rgba(255,255,255,0.03), rgba(255,0,98,0.16), rgba(0,255,255,0.16));
+        -webkit-mask:
+          linear-gradient(#000 0 0) content-box,
+          linear-gradient(#000 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+      }
+
+      .doom-kicker {
+        position: relative;
+        z-index: 1;
+        margin-bottom: 1.15rem;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.42em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.62);
+        text-shadow: 0 0 14px rgba(255,255,255,0.08);
+      }
+
+      .doom-timer {
+        position: relative;
+        z-index: 1;
+        margin: 0;
+        display: inline-block;
+        padding: 0.12em 0.18em 0.18em;
+        border-radius: 28px;
+        font-size: clamp(4.4rem, 17vw, 13rem);
+        font-weight: 900;
+        line-height: 0.86;
+        letter-spacing: -0.09em;
+        color: rgba(255,255,255,0.99);
+        background:
+          linear-gradient(180deg, rgba(255,255,255,0.18), rgba(255,255,255,0.02)),
+          radial-gradient(circle at 50% 30%, rgba(255,255,255,0.08), transparent 65%);
+        box-shadow:
+          inset 0 1px 0 rgba(255,255,255,0.12),
+          0 18px 70px rgba(0,0,0,0.34);
+        text-shadow:
+          0 0 12px rgba(255,255,255,0.14),
+          0 0 32px rgba(255,255,255,0.22),
+          0 0 calc(10px + (var(--glitch-intensity) * 18px)) rgba(255,0,85,0.26);
+      }
+
+      .doom-timer::before,
+      .doom-timer::after {
+        content: attr(data-text);
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        opacity: calc(var(--glitch-intensity) * 0.9);
+      }
+
+      .doom-timer::before {
+        color: rgba(0, 255, 255, 0.75);
+        transform: translateX(calc(var(--glitch-intensity) * -8px));
+        clip-path: inset(6% 0 52% 0);
+      }
+
+      .doom-timer::after {
+        color: rgba(255, 0, 98, 0.78);
+        transform: translateX(calc(var(--glitch-intensity) * 10px));
+        clip-path: inset(48% 0 8% 0);
+      }
+
+      .doom-progress {
+        position: relative;
+        z-index: 1;
+        margin: 1.1rem auto 0;
+        height: 0.4rem;
+        width: min(70vw, 540px);
+        overflow: hidden;
+        border-radius: 999px;
+        background: rgba(255,255,255,0.12);
+        box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
+      }
+
+      .doom-progress-bar {
+        height: 100%;
+        width: calc(var(--decay-progress) * 100%);
+        background: linear-gradient(90deg, #ffffff 0%, #ff4d6d 55%, #ff003c 100%);
+        box-shadow: 0 0 24px rgba(255, 0, 76, 0.45);
+        transition: width 0.8s linear;
+      }
+
+      body.end-state .doom-vignette {
+        opacity: 0.95;
+      }
+
+      body.end-state .doom-noise,
+      body.end-state .doom-scanlines,
+      body.end-state .doom-flash,
+      body.end-state .doom-artifacts {
+        opacity: 0.34;
+      }
+
+      body.end-state .doom-timer {
+        animation: endTextGlitch 0.22s steps(2) infinite;
+      }
+
+      @keyframes noiseShift {
+        0% { transform: translate3d(0, 0, 0); }
+        25% { transform: translate3d(1px, -1px, 0); }
+        50% { transform: translate3d(-2px, 1px, 0); }
+        75% { transform: translate3d(2px, 0, 0); }
+        100% { transform: translate3d(0, 0, 0); }
+      }
+
+      @keyframes flashJitter {
+        0% { transform: translateX(-2%); }
+        50% { transform: translateX(2%); }
+        100% { transform: translateX(-1%); }
+      }
+
+      @keyframes endTextGlitch {
+        0% { transform: translate(0, 0); }
+        20% { transform: translate(-3px, 1px); }
+        40% { transform: translate(3px, -2px); }
+        60% { transform: translate(-2px, 2px); }
+        80% { transform: translate(2px, 1px); }
+        100% { transform: translate(0, 0); }
+      }
+
+      @keyframes pixelTear {
+        0% { opacity: 0; transform: translateX(calc(var(--glitch-intensity) * var(--shift) * 1px)) scaleX(0.8); }
+        30% { opacity: 1; }
+        70% { opacity: 0.9; }
+        100% { opacity: 0; transform: translateX(calc(var(--glitch-intensity) * var(--shift) * -1.2px)) scaleX(1.3); }
+      }
     </style>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -156,7 +464,31 @@
     <div class="pointer-events-none fixed -right-16 top-40 -z-10 h-80 w-80 rounded-full bg-indigo-500/12 blur-3xl animate-pulseSoft"></div>
     <div class="pointer-events-none fixed inset-x-0 bottom-[-120px] -z-10 mx-auto h-72 w-[70vw] rounded-full bg-blue-500/8 blur-3xl animate-pulseSoft"></div>
 
-    <main class="mx-auto max-w-7xl px-4 pb-10 pt-8 sm:px-6 lg:px-8">
+    <div class="doom-overlay" aria-hidden="true">
+      <div class="doom-vignette"></div>
+      <div class="doom-noise"></div>
+      <div class="doom-scanlines"></div>
+      <div class="doom-flash"></div>
+      <div id="doomArtifacts" class="doom-artifacts"></div>
+      <div class="doom-pixels">
+        <span style="--x: 8; --y: 14; --size: 22; --shift: 14; --speed: 1;"></span>
+        <span style="--x: 62; --y: 22; --size: 34; --shift: -18; --speed: 2;"></span>
+        <span style="--x: 27; --y: 35; --size: 18; --shift: 24; --speed: 3;"></span>
+        <span style="--x: 74; --y: 48; --size: 42; --shift: -22; --speed: 2;"></span>
+        <span style="--x: 16; --y: 57; --size: 26; --shift: 18; --speed: 4;"></span>
+        <span style="--x: 55; --y: 68; --size: 30; --shift: -15; --speed: 1;"></span>
+        <span style="--x: 82; --y: 77; --size: 20; --shift: 17; --speed: 3;"></span>
+      </div>
+      <div class="doom-panel">
+        <div id="doomKicker" class="doom-kicker">28 марта, 12:00–14:00 МСК</div>
+        <h1 id="doomTimer" class="doom-timer" data-text="02:00:00">02:00:00</h1>
+        <div class="doom-progress">
+          <div class="doom-progress-bar"></div>
+        </div>
+      </div>
+    </div>
+
+    <main id="siteContent" class="mx-auto max-w-7xl px-4 pb-10 pt-8 sm:px-6 lg:px-8">
       <section class="glass-card relative overflow-hidden rounded-[36px] border border-white/10 bg-white/5 backdrop-blur-2xl">
         <div class="absolute inset-0 bg-hero-mesh"></div>
         <div class="absolute inset-0 bg-[linear-gradient(135deg,rgba(125,211,252,0.08),transparent_35%,rgba(99,102,241,0.10)_75%,transparent_100%)]"></div>
@@ -498,6 +830,14 @@
       const TARGET_AMOUNT = 70000;
       const MSK_OFFSET_HOURS = 3;
       const STORAGE_KEY = 'mode_actual_income';
+      const GLITCH_START_HOUR_MSK = 1;
+      const DOOM_START_HOUR_MSK = 12;
+      const DOOM_END_HOUR_MSK = 14;
+      let doomTestOverride = null;
+      let lastDoomLogSecond = null;
+      let currentGlitchIntensity = 0;
+      let currentEndState = false;
+      let artifactsEnabled = false;
 
       const MODE_EVENTS = [
         {
@@ -646,6 +986,171 @@
         const msk = getMSKNowParts();
         document.getElementById('nowTime').textContent =
           `${pad(msk.hours)}:${pad(msk.minutes)}:${pad(msk.seconds)}`;
+      }
+
+      function getDoomWindowUTC() {
+        if (doomTestOverride) {
+          return doomTestOverride;
+        }
+
+        const nowMsk = getMSKNowDate();
+        const year = nowMsk.getUTCFullYear();
+
+        return {
+          glitchStart: new Date(
+            Date.UTC(year, 2, 28, GLITCH_START_HOUR_MSK - MSK_OFFSET_HOURS, 0, 0)
+          ),
+          start: new Date(Date.UTC(year, 2, 28, DOOM_START_HOUR_MSK - MSK_OFFSET_HOURS, 0, 0)),
+          end: new Date(Date.UTC(year, 2, 28, DOOM_END_HOUR_MSK - MSK_OFFSET_HOURS, 0, 0)),
+        };
+      }
+
+      function randomBetween(min, max) {
+        return Math.random() * (max - min) + min;
+      }
+
+      function updateArtifactField(glitchIntensity, endState) {
+        const field = document.getElementById('doomArtifacts');
+        if (!field) return;
+
+        if (glitchIntensity <= 0.02) {
+          if (field.innerHTML) field.innerHTML = '';
+          document.documentElement.style.setProperty('--artifact-shift-x', '0px');
+          document.documentElement.style.setProperty('--artifact-shift-y', '0px');
+          artifactsEnabled = false;
+          return;
+        }
+
+        const count = Math.max(2, Math.round(glitchIntensity * (endState ? 12 : 8)));
+        const fragments = [];
+
+        for (let index = 0; index < count; index += 1) {
+          const y = randomBetween(2, 96).toFixed(2);
+          const x = randomBetween(-6, 72).toFixed(2);
+          const width = randomBetween(8, 42 + glitchIntensity * 22).toFixed(2);
+          const height = randomBetween(3, 10 + glitchIntensity * 20).toFixed(2);
+          const dx = randomBetween(-140, 140).toFixed(2);
+          const opacity = randomBetween(0.18, Math.min(0.95, 0.28 + glitchIntensity * 0.9)).toFixed(2);
+          const skew = randomBetween(-18, 18).toFixed(2);
+
+          fragments.push(
+            `<span class="doom-artifact" style="--x:${x}%;--y:${y}%;--w:${width}%;--h:${height}px;--dx:${dx}px;--o:${opacity};--skew:${skew}deg;"></span>`
+          );
+        }
+
+        field.innerHTML = fragments.join('');
+        artifactsEnabled = true;
+        document.documentElement.style.setProperty(
+          '--artifact-shift-x',
+          `${randomBetween(-10, 10) * glitchIntensity}px`
+        );
+        document.documentElement.style.setProperty(
+          '--artifact-shift-y',
+          `${randomBetween(-6, 6) * glitchIntensity}px`
+        );
+      }
+
+      function refreshArtifactFieldFromState() {
+        if (!artifactsEnabled && currentGlitchIntensity <= 0.02) return;
+        updateArtifactField(currentGlitchIntensity, currentEndState);
+      }
+
+      function updateDoomOverlay() {
+        const now = new Date();
+        const { glitchStart, start, end } = getDoomWindowUTC();
+        const total = end.getTime() - start.getTime();
+        const glitchTotal = end.getTime() - glitchStart.getTime();
+        const timer = document.getElementById('doomTimer');
+        const kicker = document.getElementById('doomKicker');
+
+        if (!timer || !kicker || total <= 0 || glitchTotal <= 0) return;
+
+        let progress = 0;
+        let glitchProgress = 0;
+        let timerVisibility = 0;
+        let text = '02:00:00';
+        let kickerText = '28 марта, 12:00–14:00 МСК';
+        let endState = false;
+
+        if (now.getTime() < glitchStart.getTime()) {
+          text = '02:00:00';
+          kickerText = 'Глюки стартуют 28 марта в 02:00 МСК';
+        } else if (now.getTime() < start.getTime()) {
+          glitchProgress = Math.min(Math.max((now.getTime() - glitchStart.getTime()) / glitchTotal, 0), 1);
+          text = '02:00:00';
+          kickerText = 'Глюки усиливаются с 02:00 до 14:00 МСК';
+        } else if (now.getTime() >= end.getTime()) {
+          progress = 1;
+          glitchProgress = 1;
+          timerVisibility = 1;
+          text = 'ВСЕ!';
+          kickerText = '28 марта, после 14:00 МСК';
+          endState = true;
+        } else {
+          const remaining = end.getTime() - now.getTime();
+          progress = Math.min(Math.max((now.getTime() - start.getTime()) / total, 0), 1);
+          glitchProgress = Math.min(Math.max((now.getTime() - glitchStart.getTime()) / glitchTotal, 0), 1);
+          timerVisibility = progress;
+          const hours = Math.floor(remaining / (1000 * 60 * 60));
+          const minutes = Math.floor((remaining / (1000 * 60)) % 60);
+          const seconds = Math.floor((remaining / 1000) % 60);
+
+          text = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+        }
+
+        const glitchIntensity = endState ? 1 : glitchProgress;
+
+        document.documentElement.style.setProperty('--decay-progress', progress.toFixed(4));
+        document.documentElement.style.setProperty('--glitch-intensity', glitchIntensity.toFixed(4));
+        document.documentElement.style.setProperty('--timer-visibility', timerVisibility.toFixed(4));
+        document.body.classList.toggle('end-state', endState);
+        currentGlitchIntensity = glitchIntensity;
+        currentEndState = endState;
+        updateArtifactField(glitchIntensity, endState);
+
+        timer.textContent = text;
+        timer.setAttribute('data-text', text);
+        kicker.textContent = kickerText;
+
+        if (doomTestOverride) {
+          const currentSecond = Math.floor(now.getTime() / 1000);
+
+          if (lastDoomLogSecond !== currentSecond) {
+            lastDoomLogSecond = currentSecond;
+            console.log(
+              `[doom-test] glitches=${(glitchIntensity * 100).toFixed(1)}% timer=${(timerVisibility * 100).toFixed(1)}% blackout=${(progress * 100).toFixed(1)}%`
+            );
+          }
+        }
+      }
+
+      function runDoomTest(totalSeconds = 120, preGlitchSeconds = 30) {
+        const now = new Date();
+        const safeTotalSeconds = Math.max(5, Number(totalSeconds) || 120);
+        const safePreGlitchSeconds = Math.max(0, Math.min(Number(preGlitchSeconds) || 30, safeTotalSeconds - 1));
+
+        doomTestOverride = {
+          glitchStart: new Date(now.getTime()),
+          start: new Date(now.getTime() + safePreGlitchSeconds * 1000),
+          end: new Date(now.getTime() + safeTotalSeconds * 1000),
+        };
+
+        lastDoomLogSecond = null;
+        artifactsEnabled = false;
+        updateDoomOverlay();
+      }
+
+      function stopDoomTest() {
+        doomTestOverride = null;
+        lastDoomLogSecond = null;
+        currentGlitchIntensity = 0;
+        currentEndState = false;
+        artifactsEnabled = false;
+        document.documentElement.style.setProperty('--decay-progress', '0');
+        document.documentElement.style.setProperty('--glitch-intensity', '0');
+        document.documentElement.style.setProperty('--timer-visibility', '0');
+        document.body.classList.remove('end-state');
+        updateDoomOverlay();
       }
 
       function updateTimer() {
@@ -871,18 +1376,27 @@
       }
 
       updateClock();
+      updateDoomOverlay();
       updateTimer();
       updatePlanStats();
       renderEvents();
       initIncomeControls();
 
+      window.runDoomTest = runDoomTest;
+      window.stopDoomTest = stopDoomTest;
+
       setInterval(() => {
         updateClock();
+        updateDoomOverlay();
         updateTimer();
         updatePlanStats();
         updateIncomeStats();
         renderEvents();
       }, 1000);
+
+      setInterval(() => {
+        refreshArtifactFieldFromState();
+      }, 320);
     </script>
   </body>
 </html>
